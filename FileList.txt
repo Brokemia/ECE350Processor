@@ -1,0 +1,17 @@
+RAM.v
+ROM.v
+Wrapper.v
+Wrapper_tb.v
+alu.v
+cla.v
+decoder.v
+mux.v
+multdiv.v
+counter.v
+processor.v
+big_gates.v
+regfile.v
+register.v
+shift.v
+tristate.v
+dffe_ref.v

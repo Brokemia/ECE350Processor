@@ -1,0 +1,49 @@
+Cycle  11: Wrote 1 into register 1
+Cycle  12: Wrote 2 into register 2
+Cycle  13: Wrote 3 into register 3
+Cycle  14: Wrote 4 into register 4
+Cycle  15: Wrote 4294967294 into register 5
+Cycle 122: Wrote 0 into register 6
+Cycle 156: Wrote 0 into register 7
+Cycle 190: Wrote 2 into register 8
+Cycle 224: Wrote 12 into register 9
+Cycle 258: Wrote 4294967288 into register 10
+Cycle 292: Wrote 0 into register 11
+Cycle 293: Wrote 0 into register 12
+Cycle 327: Wrote 2 into register 13
+Cycle 395: Wrote 2 into register 14
+Cycle 396: Wrote 4 into register 15
+Cycle 397: Wrote 4294967294 into register 16
+============== Testing Mode ==============
+Reg  0:           0
+Reg  1:           1
+Reg  2:           2
+Reg  3:           3
+Reg  4:           4
+Reg  5:  4294967294
+Reg  6:           0
+Reg  7:           0
+Reg  8:           2
+Reg  9:          12
+Reg 10:  4294967288
+Reg 11:           0
+Reg 12:           0
+Reg 13:           2
+Reg 14:           2
+Reg 15:           4
+Reg 16:  4294967294
+Reg 17:           0
+Reg 18:           0
+Reg 19:           0
+Reg 20:           0
+Reg 21:           0
+Reg 22:           0
+Reg 23:           0
+Reg 24:           0
+Reg 25:           0
+Reg 26:           0
+Reg 27:           0
+Reg 28:           0
+Reg 29:           0
+Reg 30:           0
+Reg 31:           0

@@ -33,7 +33,7 @@
  *
  **/
 
-module Wrapper_tb #(parameter FILE = "jump");
+module Wrapper_tb #(parameter FILE = "alu_hazards");
 
 	// FileData
 	localparam DIR = "Test Files/";

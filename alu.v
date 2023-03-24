@@ -26,7 +26,7 @@ module alu(data_operandA, data_operandB, ctrl_ALUopcode, ctrl_shiftamt, data_res
     xnor SameSignOperands(SameSignOps, data_operandA[31], data_operandB[31]);
     xor DiffSignOperands(DiffSignOps, data_operandA[31], data_operandB[31]);
     xor DiffSignResult(DiffSignRes, data_result[31], data_operandA[31]);
-    and OverflowCalc(overflow, ctrl_ALUopcode[0] ? DiffSignOps : SameSignOps, DiffSignRes);
+    and OverflowCalc(overflow, ctrl_ALUopcode[0] ? DiffSignOps : SameSignOps, DiffSignRes, ctrl_ALUopcode[4:1] == 4'b0);
 
     // If any of the ouput bits are 1, the operands are not equal
     nor ZeroSection0(ZeroSections[0], data_result[0], data_result[1], data_result[2], data_result[3], data_result[4], data_result[5], data_result[6], data_result[7]);

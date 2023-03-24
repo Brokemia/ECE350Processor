@@ -61,103 +61,146 @@ module processor(
 	output [31:0] data_writeReg;
 	input [31:0] data_readRegA, data_readRegB;
 
-    wire writeEnable;
+    wire writeEnable, stallFD;
 
     /* Stall Logic */
     assign writeEnable = !isMultDiv || multDivReady;
 
 	/* FETCH */
-    wire [31:0] pc, pcPlusOne, jumpTarget, pcNext;
-    wire isJumpI;
-    register32 PC(!clock, writeEnable, reset, pcNext, pc);
+    wire [31:0] pc, pcPlusOne, jumpTarget, pcNext, executeSXImmediate, branchFromPC, bexJumpTarget;
+    wire isJumpI, isJumpII, takeBranch, flushFD, takeBEX;
+    register32 PC(!clock, writeEnable && !stallFD, reset, pcNext, pc);
 
-    assign address_imem = isJumpII ? data_readRegA : pc;
+    assign address_imem = isJumpII ? bypassedA : pc;
 
-    cla PCPlusOne(address_imem, takeBranch ? executeSXImmediate : 32'b0, 1'b1, pcPlusOne);
+    cla PCPlusOne(takeBranch ? branchFromPC : address_imem, takeBranch ? executeSXImmediate : 32'b0, !isJumpII, pcPlusOne);
 
     // Do this super early to avoid having to flush instructions when we don't need to
     assign jumpTarget = {{5{q_imem[26]}}, q_imem[26:0]};
     assign isJumpI = q_imem[31:29] == 3'b000 && q_imem[27];
 
-    assign pcNext = isJumpI ? jumpTarget : pcPlusOne;
+    assign pcNext = takeBEX ? bexJumpTarget : ((isJumpI && !takeBranch) ? jumpTarget : pcPlusOne);
 
     // Latch
     wire [31:0] latchFD_PC, latchFD_IR;
-    wire isJumpII;
-    register32 LatchFD_PC(!clock, writeEnable, reset, address_imem, latchFD_PC);
-    register32 LatchFD_IR(!clock, writeEnable, reset, q_imem, latchFD_IR);
+    register32 LatchFD_PC(!clock, writeEnable && !stallFD, reset, address_imem, latchFD_PC);
+    register32 LatchFD_IR(!clock, writeEnable && !stallFD, reset, flushFD ? 31'b0 : q_imem, latchFD_IR);
 
     /* DECODE */
     wire decodeBranch;
     assign decodeBranch = latchFD_IR[31:30] == 2'b00 && latchFD_IR[28:27] == 2'b10;
     // jr loads from $rd into A
-    assign ctrl_readRegA = latchFD_IR[31:27] == 5'b00100 ? latchFD_IR[26:22] : latchFD_IR[21:17];
+    assign ctrl_readRegA = latchFD_IR[31:27] == 5'b10110 ? 5'd30 : (latchFD_IR[31:27] == 5'b00100 ? latchFD_IR[26:22] : latchFD_IR[21:17]);
     // sw and branches load from $rd into B
     assign ctrl_readRegB = (latchFD_IR[31:27] == 5'b00111 || decodeBranch) ? latchFD_IR[26:22] : latchFD_IR[16:12];
 
-    assign isJumpII = latchFD_IR[31:27] == 5'b00100;
-
     // Latch
     wire [31:0] latchDX_PC, latchDX_IR, latchDX_A, latchDX_B;
+    wire [4:0] latchDX_AReg, latchDX_BReg;
     register32 LatchDX_PC(!clock, writeEnable, reset, latchFD_PC, latchDX_PC);
-    register32 LatchDX_IR(!clock, writeEnable, reset, latchFD_IR, latchDX_IR);
+    register32 LatchDX_IR(!clock, writeEnable, reset, (flushFD || stallFD) ? 31'b0 : latchFD_IR, latchDX_IR);
     register32 LatchDX_A(!clock, writeEnable, reset, data_readRegA, latchDX_A);
     register32 LatchDX_B(!clock, writeEnable, reset, data_readRegB, latchDX_B);
+    register5 LatchDX_AReg(!clock, writeEnable, reset, ctrl_readRegA, latchDX_AReg);
+    register5 LatchDX_BReg(!clock, writeEnable, reset, ctrl_readRegB, latchDX_BReg);
 
     /* EXECUTE */
-    wire [31:0] aluResult, actualA, actualB, multDivResult, executeSXImmediate;
-    wire [4:0] aluOp, aluShamt;
-    wire aluNE, aluLT, aluOverflow, executeIType, isALUOp, isMultDiv, multDivException, multDivReady, multSignal, divSignal, multDivStalling, executeJAL,
-        executeBranch, bltVsBne;
-    assign isALUOp = latchDX_IR[31:27] == 5'b00000 || latchDX_IR[31:27] == 5'b00101;
+    wire [31:0] aluResult, actualA, actualB, multDivResult, bypassedA, bypassedB, nonExceptionResult, exceptionCode, exceptionCodeMux;
+    wire [4:0] aluOp, aluShamt, memoryWhichWriteReg;
+    wire aluNE, aluLT, aluOverflow, executeIType, isMultDiv, multDivException, multDivReady, multSignal, divSignal, multDivSignal1, multDivSignal2, executeJAL,
+        executeBranch, bltVsBne, memoryShouldWriteReg, executeBEX, hadException, exceptionMux;
+    
+    // Stall if load before using reg
+    assign stallFD = latchDX_IR[31:27] == 5'b01000 &&
+        (ctrl_readRegA == latchDX_IR[26:22] ||
+        (ctrl_readRegB == latchDX_IR[26:22] && latchFD_IR[31:27] != 5'b00111));
+    
     assign executeIType = latchDX_IR[31:27] == 5'b01000 || (latchDX_IR[31:29] == 3'b001 && latchDX_IR[27]);
     assign executeJAL = latchDX_IR[31:27] == 5'b00011;
     assign bltVsBne = latchDX_IR[29];
     assign executeBranch = latchDX_IR[31:30] == 2'b00 && latchDX_IR[28:27] == 2'b10;
+    assign executeBEX = latchDX_IR[31:27] == 5'b10110;
 
     assign executeSXImmediate = {{15{latchDX_IR[16]}}, latchDX_IR[16:0]};
 
-    assign actualA = executeJAL ? latchDX_PC : latchDX_A;
-    assign actualB = executeJAL ? 32'b1 : (executeIType ? executeSXImmediate : latchDX_B);
+    // Bypass to replace occurrences of latchDX_A and latchDX_B if needed
+    // MX and WX
+    assign bypassedA = (memoryShouldWriteReg && memoryWhichWriteReg != 5'b0 && memoryWhichWriteReg == latchDX_AReg) ? latchXM_O : 
+        ((writebackShouldWriteReg && ctrl_writeReg != 5'b0 && ctrl_writeReg == latchDX_AReg) ? data_writeReg : latchDX_A);
+    assign bypassedB = (memoryShouldWriteReg && memoryWhichWriteReg != 5'b0 && memoryWhichWriteReg == latchDX_BReg) ? latchXM_O : 
+        ((writebackShouldWriteReg && ctrl_writeReg != 5'b0 && ctrl_writeReg == latchDX_BReg) ? data_writeReg : latchDX_B);
+
+    assign actualA = executeJAL ? latchDX_PC : bypassedA;
+    assign actualB = executeBEX ? 32'b0 : (executeJAL ? 32'b1 : (executeIType ? executeSXImmediate : bypassedB));
     
-    assign aluOp = executeBranch ? 5'b1 : ((executeIType || executeJAL) ? 5'b0 : latchDX_IR[6:2]);
-    assign aluShamt = (executeIType || executeJAL || executeBranch) ? 5'b0 : latchDX_IR[11:7];
+    assign aluOp = executeBranch ? 5'b1 : ((executeIType || executeJAL || executeBEX) ? 5'b0 : latchDX_IR[6:2]);
+    assign aluShamt = (executeIType || executeJAL || executeBranch || executeBEX) ? 5'b0 : latchDX_IR[11:7];
     alu ALU(actualA, actualB, aluOp, aluShamt, aluResult, aluNE, aluLT, aluOverflow);
 
-    assign takeBranch = (bltVsBne && !aluLT) || (!bltVsBne && aluNE);
+    assign isJumpII = latchDX_IR[31:27] == 5'b00100;
 
-    assign isMultDiv = isALUOp && aluOp[4:1] == 4'b0011;
-    assign multSignal = (isMultDiv && !aluOp[0]) && !multDivStalling && !multDivReady;
-    assign divSignal = (isMultDiv && aluOp[0]) && !multDivStalling && !multDivReady;
-    multdiv MultDiv(latchDX_A, actualB, multSignal, divSignal, !clock && isMultDiv, multDivResult, multDivException, multDivReady);
-    dffe_ref MultDivStalling(multDivStalling, !writeEnable, !clock, 1'b1, reset);
+    assign takeBranch = executeBranch && aluNE && (!aluLT || !bltVsBne);
+    assign branchFromPC = latchDX_PC;
+    assign takeBEX = executeBEX && aluNE;
+    assign bexJumpTarget = {{5{latchDX_IR[26]}}, latchDX_IR[26:0]};
+    assign flushFD = takeBranch || isJumpII;
+
+    assign isMultDiv = latchDX_IR[31:27] == 5'b00000 && aluOp[4:1] == 4'b0011;
+    assign multSignal = (isMultDiv && !aluOp[0]) && (!multDivSignal1 || !multDivSignal2) && !multDivReady;
+    assign divSignal = (isMultDiv && aluOp[0]) && (!multDivSignal1 || !multDivSignal2) && !multDivReady;
+    multdiv MultDiv(actualA, actualB, multSignal, divSignal, !clock && isMultDiv, multDivResult, multDivException, multDivReady);
+    dffe_ref MultDivSignal1(multDivSignal1, !writeEnable, !clock, 1'b1, reset);
+    dffe_ref MultDivSignal2(multDivSignal2, multDivSignal1, !clock, 1'b1, reset);
+
+    mux4 ExceptionCodeMux(exceptionCodeMux, aluOp[1:0], 32'd1, 32'd3, 32'd4, 32'd5);
+    assign exceptionCode = latchDX_IR[31:27] == 5'b00101 ? 32'd2 : exceptionCodeMux;
+    mux8_1b ExceptionMux(exceptionMux, aluOp[2:0], aluOverflow, aluOverflow, 1'b0, 1'b0, 1'b0, 1'b0, multDivException, multDivException);
+    assign hadException = (exceptionMux && latchDX_IR[31:27] == 5'b00000) || (latchDX_IR[31:27] == 5'b00101 && aluOverflow);
+
+    assign nonExceptionResult = latchDX_IR[31:27] == 5'b10101 ? bexJumpTarget : (isMultDiv ? multDivResult : aluResult);
 
     // Latch
     wire [31:0] latchXM_IR, latchXM_O, latchXM_B;
+    wire [4:0] latchXM_BReg;
+    wire latchXM_Exception;
     register32 LatchXM_IR(!clock, writeEnable, reset, latchDX_IR, latchXM_IR);
-    register32 LatchXM_O(!clock, writeEnable, reset, isMultDiv ? multDivResult : aluResult, latchXM_O);
+    register32 LatchXM_O(!clock, writeEnable, reset, hadException ? exceptionCode : nonExceptionResult, latchXM_O);
     register32 LatchXM_B(!clock, writeEnable, reset, latchDX_B, latchXM_B);
+    register5 LatchXM_BReg(!clock, writeEnable, reset, latchDX_BReg, latchXM_BReg);
+    dffe_ref LatchXM_Exception(latchXM_Exception, hadException, !clock, writeEnable, reset);
 
     /* MEMORY */
-    wire [31:0] memoryOutput;
+    wire [31:0] memoryOutput, bypassedMemData;
     assign address_dmem = latchXM_O;
-    assign data = latchXM_B;
+
+    // Bypass to replace occurrences of latchXM_B if needed
+    // WM
+    assign bypassedMemData = (writebackShouldWriteReg && ctrl_writeReg != 5'b0 && ctrl_writeReg == latchXM_BReg) ? data_writeReg : latchXM_B;
+
+    assign data = bypassedMemData;
     assign wren = latchXM_IR[31:27] == 5'b00111;
 
     assign memoryOutput = latchXM_IR[31:27] == 5'b01000 ? q_dmem : latchXM_O;
 
+    //`define shouldWriteReg(IR) IR[31:27] == 5'b00000 || IR[31:27] == 5'b00101 || IR[31:27] == 5'b01000 || IR[31:27] == 5'b00011;
+    //`define whichWriteReg(IR) IR[31:27] == 5'b00011 ? 5'd31 : IR[26:22];
+
+    assign memoryShouldWriteReg = latchXM_Exception || latchXM_IR[31:27] == 5'b10101 || latchXM_IR[31:27] == 5'b00000 || latchXM_IR[31:27] == 5'b00101 || latchXM_IR[31:27] == 5'b01000 || latchXM_IR[31:27] == 5'b00011;
+    assign memoryWhichWriteReg = (latchXM_Exception || latchXM_IR[31:27] == 5'b10101) ? 5'd30 : (latchXM_IR[31:27] == 5'b00011 ? 5'd31 : latchXM_IR[26:22]);
+
     //Latch
     wire [31:0] latchMW_IR, latchMW_O;
+    wire latchMW_Exception;
     register32 LatchMW_IR(!clock, writeEnable, reset, latchXM_IR, latchMW_IR);
     register32 LatchMW_O(!clock, writeEnable, reset, memoryOutput, latchMW_O);
+    dffe_ref LatchMW_Exception(latchMW_Exception, latchXM_Exception, !clock, writeEnable, reset);
 
     /* WRITEBACK */
-    wire writeToReg, writebackJAL;
-    assign writebackJAL = latchMW_IR[31:27] == 5'b00011;
-    assign writeToReg = latchMW_IR[31:27] == 5'b00000 || latchMW_IR[31:27] == 5'b00101 || latchMW_IR[31:27] == 5'b01000 || writebackJAL;
-    assign ctrl_writeEnable = writeEnable && writeToReg;
-    // jal writes specifically to r31
-    assign ctrl_writeReg = writebackJAL ? 5'd31 : latchMW_IR[26:22];
+    wire writebackShouldWriteReg;
+    assign writebackShouldWriteReg = latchMW_Exception || latchMW_IR[31:27] == 5'b10101 || latchMW_IR[31:27] == 5'b00000 || latchMW_IR[31:27] == 5'b00101 || latchMW_IR[31:27] == 5'b01000 || latchMW_IR[31:27] == 5'b00011;
+    assign ctrl_writeEnable = writeEnable && writebackShouldWriteReg;
+    // jal writes specifically to r31, and setx writes to r30
+    assign ctrl_writeReg = (latchMW_Exception || latchMW_IR[31:27] == 5'b10101) ? 5'd30 : (latchMW_IR[31:27] == 5'b00011 ? 5'd31 : latchMW_IR[26:22]);
     assign data_writeReg = latchMW_O;
 
 endmodule

@@ -24,8 +24,9 @@
  *
  **/
 
-module Wrapper (clock, reset);
+module Wrapper (clock, reset, JA);
 	input clock, reset;
+	input [7:0] JA;
 
 	wire rwe, mwe;
 	wire[4:0] rd, rs1, rs2;
@@ -58,12 +59,16 @@ module Wrapper (clock, reset);
 		.addr(instAddr[11:0]), 
 		.dataOut(instData));
 	
+	wire [31:0] data_r29;
+	assign JA = data_r29[7:0];
+
 	// Register File
 	regfile RegisterFile(.clock(clock), 
 		.ctrl_writeEnable(rwe), .ctrl_reset(reset), 
 		.ctrl_writeReg(rd),
 		.ctrl_readRegA(rs1), .ctrl_readRegB(rs2), 
-		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB));
+		.data_writeReg(rData), .data_readRegA(regA), .data_readRegB(regB),
+		.data_r29(data_r29));
 						
 	// Processor Memory (RAM)
 	RAM ProcMem(.clk(clock), 

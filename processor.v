@@ -133,7 +133,7 @@ module processor(
     assign actualA = executeJAL ? latchDX_PC : bypassedA;
     assign actualB = executeBEX ? 32'b0 : (executeJAL ? 32'b1 : (executeIType ? executeSXImmediate : bypassedB));
     
-    assign aluOp = executeBranch ? 5'b1 : ((executeIType || executeJAL || executeBEX) ? 5'b0 : latchDX_IR[6:2]);
+    assign aluOp = executeBranch ? 5'b1 : ((executeIType || executeJAL || executeBEX) ? 5'b0 : latchDX_IR[6:2]); // FIXME? Should BEX make this 1?
     assign aluShamt = (executeIType || executeJAL || executeBranch || executeBEX) ? 5'b0 : latchDX_IR[11:7];
     alu ALU(actualA, actualB, aluOp, aluShamt, aluResult, aluNE, aluLT, aluOverflow);
 

@@ -2,7 +2,7 @@ module regfile (
 	clock,
 	ctrl_writeEnable, ctrl_reset, ctrl_writeReg,
 	ctrl_readRegA, ctrl_readRegB, data_writeReg,
-	data_readRegA, data_readRegB
+	data_readRegA, data_readRegB, data_r29
 );
 
 	input clock, ctrl_writeEnable, ctrl_reset;
@@ -43,4 +43,6 @@ module regfile (
 			);
 		end
 	endgenerate
+
+	assign data_r29 = regOut[29];
 endmodule

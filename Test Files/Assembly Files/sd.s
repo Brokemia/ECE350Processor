@@ -1,7 +1,7 @@
 # $r6, $r7, $r8, $r9 are my parameter passers
 # r5 is the return register
 # r15-20 are scratch work
-
+j main
 
 wait:  
     # r6 has number of cycles to wait,
@@ -52,38 +52,38 @@ send_cmd:
 
 # get_response:
 
+main:
+    ## Start of SPI with SD Card
 
-## Start of SPI with SD Card
-
-# set r6 and r7 to be cmd0
-addi $r7, $r0, 148
-addi $r6, $r0, 0
-addi $r8, $r0, 0
-jal send_cmd
+    # set r6 and r7 to be cmd0
+    addi $r7, $r0, 148
+    addi $r6, $r0, 0
+    addi $r8, $r0, 0
+    jal send_cmd
 
 
-addi $r6, $r0, 4096
-jal wait
+    addi $r6, $r0, 4096
+    jal wait
 
-# send cmd8
-addi $r6, $r0, 8
-addi $r8, $r0, 426
-addi $r7, $r0, 134
-jal send_cmd
+    # send cmd8
+    addi $r6, $r0, 8
+    addi $r8, $r0, 426
+    addi $r7, $r0, 134
+    jal send_cmd
 
-addi $r6, $r0, 4096
-jal wait
+    addi $r6, $r0, 4096
+    jal wait
 
-# send cmd58
-addi $r6, $r0, 58
-addi $r8, $r0, 0
-addi $r7, $r0, 0
-jal send_cmd
+    # send cmd58
+    addi $r6, $r0, 58
+    addi $r8, $r0, 0
+    addi $r7, $r0, 0
+    jal send_cmd
 
-addi $r6, $r0, 4096
-jal wait
+    addi $r6, $r0, 4096
+    jal wait
 
-addi $r4, $r0, 100
+    addi $r4, $r0, 100
 
 init_loop:
     addi $r4, $r4, -1

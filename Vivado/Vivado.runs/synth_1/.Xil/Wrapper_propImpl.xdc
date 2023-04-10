@@ -29,3 +29,19 @@ set_property src_info {type:XDC file:1 line:90 export:INPUT save:INPUT read:READ
 set_property -dict { PACKAGE_PIN F18   IOSTANDARD LVCMOS33 } [get_ports { JA[6] }]; #IO_L22N_T3_A16_15 Sch=ja[9]
 set_property src_info {type:XDC file:1 line:91 export:INPUT save:INPUT read:READ} [current_design]
 set_property -dict { PACKAGE_PIN G18   IOSTANDARD LVCMOS33 } [get_ports { JA[7] }]; #IO_L22P_T3_A17_15 Sch=ja[10]
+set_property src_info {type:XDC file:1 line:150 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN E2    IOSTANDARD LVCMOS33 } [get_ports { SD[0] }]; #IO_L14P_T2_SRCC_35 Sch=sd_reset
+set_property src_info {type:XDC file:1 line:151 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN A1    IOSTANDARD LVCMOS33 } [get_ports { SD[1] }]; #IO_L9N_T1_DQS_AD7N_35 Sch=sd_cd
+set_property src_info {type:XDC file:1 line:152 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN B1    IOSTANDARD LVCMOS33 } [get_ports { SD[2] }]; #IO_L9P_T1_DQS_AD7P_35 Sch=sd_sck
+set_property src_info {type:XDC file:1 line:153 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN C1    IOSTANDARD LVCMOS33 } [get_ports { SD[3] }]; #IO_L16N_T2_35 Sch=sd_cmd
+set_property src_info {type:XDC file:1 line:154 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN C2    IOSTANDARD LVCMOS33 } [get_ports { SD[4] }]; #IO_L16P_T2_35 Sch=sd_dat[0]
+set_property src_info {type:XDC file:1 line:155 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN E1    IOSTANDARD LVCMOS33 } [get_ports { SD[5] }]; #IO_L18N_T2_35 Sch=sd_dat[1]
+set_property src_info {type:XDC file:1 line:156 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN F1    IOSTANDARD LVCMOS33 } [get_ports { SD[6] }]; #IO_L18P_T2_35 Sch=sd_dat[2]
+set_property src_info {type:XDC file:1 line:157 export:INPUT save:INPUT read:READ} [current_design]
+set_property -dict { PACKAGE_PIN D2    IOSTANDARD LVCMOS33 } [get_ports { SD[7] }]; #IO_L14N_T2_SRCC_35 Sch=sd_dat[3]

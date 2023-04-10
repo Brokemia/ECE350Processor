@@ -99,4 +99,5 @@ module Wrapper (clock, rst, JA, BTN, SD);
 	MemoryMap MemMap(memAddr[11:0], memDataIn, memDataOut, mwe,
 		RAMDataOut, writeRAM, BTN, SD_responseByte, SD_response, SD_cmd, SD_start);
 
+	ila_0 debugger(clock, SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response, memAddr[11:0], memDataIn, memDataOut, mwe);
 endmodule

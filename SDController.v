@@ -42,20 +42,21 @@ module SDController(
     reg startPulse = 1'b0;
     always @(posedge start) begin
         if (!started) begin
-            cmdBuffer <= cmd;
-            started <= 1'b1;
-            startPulse <= 1'b1;
+            
         end
     end
     always @(posedge clk) begin
+        cmdBuffer <= started ? {cmdBuffer[46:0], 1'b1} : cmd;
         if (started) begin
             startPulse <= 1'b0;
-            cmdBuffer <= {cmdBuffer[46:0], 1'b1};
             responseBuffer <= {responseBuffer[6:0], SD[4]};
             if(byteDone) begin
                 responseByte <= ~responseByte;
                 response <= responseBuffer;
             end
+        end else if (start) begin
+            started <= 1'b1;
+            startPulse <= 1'b1;
         end
     end
 endmodule

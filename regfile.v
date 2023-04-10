@@ -9,7 +9,7 @@ module regfile (
 	input [4:0] ctrl_writeReg, ctrl_readRegA, ctrl_readRegB;
 	input [31:0] data_writeReg;
 
-	output [31:0] data_readRegA, data_readRegB;
+	output [31:0] data_readRegA, data_readRegB, data_r29;
 
 	wire [31:0] writeSelect, readSelectA, readSelectB;
 	wire [31:0] regOut[0:31];

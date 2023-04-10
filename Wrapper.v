@@ -24,19 +24,22 @@
  *
  **/
 
-module Wrapper (clock, reset, JA);
-	input clock, reset;
-	input [7:0] JA;
+module Wrapper (clock, rst, JA, BTN, SD);
+	input clock, rst;
+	input [4:0] BTN;
+	output [7:0] JA;
+	inout [7:0] SD;
 
-	wire rwe, mwe;
+	wire rwe, mwe, reset, writeRAM;
 	wire[4:0] rd, rs1, rs2;
 	wire[31:0] instAddr, instData, 
 		rData, regA, regB,
-		memAddr, memDataIn, memDataOut;
+		memAddr, memDataIn, memDataOut, RAMDataOut;
 
+	assign reset = !rst; // The reset button on the FPGA is inverted for some reason
 
 	// ADD YOUR MEMORY FILE HERE
-	localparam INSTR_FILE = "";
+	localparam INSTR_FILE = "program";
 	
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
@@ -72,9 +75,28 @@ module Wrapper (clock, reset, JA);
 						
 	// Processor Memory (RAM)
 	RAM ProcMem(.clk(clock), 
-		.wEn(mwe), 
+		.wEn(writeRAM), 
 		.addr(memAddr[11:0]), 
 		.dataIn(memDataIn), 
-		.dataOut(memDataOut));
+		.dataOut(RAMDataOut));
+
+	reg SD_clk;
+	// SD clock is 512 times slower than the main clock
+	// Probably
+	reg [7:0] SD_clkCnt;
+	always @(posedge clock) begin
+		SD_clkCnt <= SD_clkCnt + 1;
+		if (SD_clkCnt == 0) begin
+			SD_clk <= ~SD_clk;
+		end
+	end
+	
+	wire [47:0] SD_cmd;
+	wire [7:0] SD_response;
+	wire SD_start, SD_responseByte;
+	SDController SDModule(SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response);
+
+	MemoryMap MemMap(memAddr[11:0], memDataIn, memDataOut, mwe,
+		RAMDataOut, writeRAM, BTN, SD_responseByte, SD_response, SD_cmd, SD_start);
 
 endmodule

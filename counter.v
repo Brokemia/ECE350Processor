@@ -16,6 +16,32 @@ module counter6(out, clk, en, clr);
     tff Bit6(out[5], toggle5, clk, en, clr);
 endmodule
 
+module counter4(out, clk, en, clr);
+    input clk, en, clr;
+    output [3:0] out;
+
+    wire toggle2, toggle3;
+
+    tff Bit1(out[0], 1'b1, clk, en, clr);
+    tff Bit2(out[1], out[0], clk, en, clr);
+    and Toggle2(toggle2, out[1], out[0]);
+    tff Bit3(out[2], toggle2, clk, en, clr);
+    and Toggle3(toggle3, out[2], out[1], out[0]);
+    tff Bit4(out[3], toggle3, clk, en, clr);
+endmodule
+
+module counter3(out, clk, en, clr);
+    input clk, en, clr;
+    output [2:0] out;
+
+    wire toggle2;
+
+    tff Bit1(out[0], 1'b1, clk, en, clr);
+    tff Bit2(out[1], out[0], clk, en, clr);
+    and Toggle2(toggle2, out[1], out[0]);
+    tff Bit3(out[2], toggle2, clk, en, clr);
+endmodule
+
 module tff(q, t, clk, en, clr);
     input t, clk, en, clr;
     output q;

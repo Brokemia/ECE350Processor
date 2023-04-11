@@ -1,5 +1,6 @@
 # $r6, $r7, $r8, $r9 are my parameter passers
-# r5 is the return register
+# r3 r5 is the return register
+# r1 is current value of toggle bit 
 # r15-20 are scratch work
 j main
 
@@ -18,6 +19,11 @@ prime_cmd:
     sw $r0, 2050($r0)
     jr $r31
 
+set_toggle_bit:
+    lw $r1, 2049($r0)
+    sra $r1, $r1, 31
+    jr $r31
+
 
 send_cmd:
     # r7 has first 
@@ -26,6 +32,12 @@ send_cmd:
     # first two addr 2050
     # second four addr 2051
 
+    #set what the current toggle bit is
+    sw $r31, 100($r0)
+    jal set_toggle_bit
+    lw $r31, 100($r0)
+
+
     # get top 8 bits of args
     sra $r16, $r8, 24
     addi $r15, $r0, 255
@@ -33,24 +45,70 @@ send_cmd:
 
     addi $r15, $r0, 1 # set bottom bit to one
     or $r6, $r6, $r15
-    sll $r6, $r6, 8 # if upper eight of arg becomes important and them below this line
+    sll $r6, $r6, 8 
     or $r6, $r6, $r16 # combine command index with top 
 
     sw $r6, 2051($r0)
     
     # get bottom 24 bits of args
     sll $r16, $r8, 8
-    addi $r15, $r0, 4294967040
+    addi $r15, $r0, 4095
+    sll $r15, $r15, 12
+    addi $r15, $r0, 4095
+    sll $r15, $r15, 8
+
     and $r16, $r16, $r15 # mask off bottom 8
 
-    addi $r15, $r0, 2147483712 #set the top bit and the first two as well so it will send
+    addi $r15, $r0, 1 #set the top bit and the first two as well so it will send
+    sll $r15, $r15, 31
     or $r7, $r7, $r15
     or $r7, $r7, $r16
     sw $r7, 2050($r0)
     
     jr $r31
 
-# get_response:
+get_next_byte:
+    # if toggle bit is different, read in the new data
+    lw $r6, 2049($r0)
+    sra $r6, $r6, 31
+    bne $r1, $r6, read_data
+    jr get_next_byte
+
+    read_data:
+        #read the byte into r5
+        sll $r5, $r6, 1
+        sra $r5, $r5, 1
+
+        #set toggle to current
+        add $r1, $r6, $r0
+    
+    jr $31
+
+get_r7_r3_response:
+    # the r1 response byte will be in $r3
+    # the other four bytes will be in $r5
+    sw $r31, 200($r0)
+    
+    jal get_next_byte
+    add $r3, $r0, $r5
+
+    jal get_next_byte
+    add $r15, $r5, $r0
+    sll $r15, $r15, 8
+
+    jal get_next_byte
+    add $r15, $r5, $r15
+    sll $r15, $r15, 8
+
+    jal get_next_byte
+    add $r15, $r5, $r15
+    sll $r15, $r15, 8
+
+    jal get_next_byte
+    add $r5, $r5, $r15
+
+    lw $r31, 200($r0)
+    jr $r31
 
 main:
     ## Start of SPI with SD Card
@@ -61,9 +119,7 @@ main:
     addi $r8, $r0, 0
     jal send_cmd
 
-
-    addi $r6, $r0, 4096
-    jal wait
+    jal get_next_byte
 
     # send cmd8
     addi $r6, $r0, 8
@@ -85,23 +141,37 @@ main:
 
     addi $r4, $r0, 100
 
-init_loop:
-    addi $r4, $r4, -1
+    init_loop:
+        addi $r4, $r4, -1
 
-    # send cmd55
-    addi $r6, $r0, 55
+        # send cmd55
+        addi $r6, $r0, 55
+        addi $r8, $r0, 0
+        addi $r7, $r0, 0
+        jal send_cmd
+
+        addi $r6, $r0, 4096
+        jal wait
+
+        # send cmd41
+        addi $r6, $r0, 41
+        addi $r8, $r0, 1
+        sll $r8, $r8, 30
+        addi $r7, $r0, 0
+        jal send_cmd
+
+        bne $r4, $r0, init_loop
+
+    ## You can now read and write from the SD card!
+
+    # Send cmd 17 to request read
+    addi $r6, $r0, 17
     addi $r8, $r0, 0
     addi $r7, $r0, 0
-    jal send_cmd
 
-    addi $r6, $r0, 4096
-    jal wait
+    # Get first/response byte
+    jal get_next_byte
 
-    # send cmd41
-    addi $r6, $r0, 41
-    addi $r8, $r0, 1073741824
-    addi $r7, $r0, 0
-    jal send_cmd
+    # Loop to get the next 512
 
-    bne $r4, $r0, init_loop
-
+    # Get last two crc bytes

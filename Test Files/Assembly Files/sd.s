@@ -72,7 +72,7 @@ get_next_byte:
     lw $r6, 2049($r0)
     sra $r6, $r6, 31
     bne $r1, $r6, read_data
-    jr get_next_byte
+    j get_next_byte
 
     read_data:
         #read the byte into r5

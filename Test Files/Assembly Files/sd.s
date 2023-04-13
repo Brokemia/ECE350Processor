@@ -43,7 +43,7 @@ send_cmd:
 
     # shift crc up one and set end bit
     sll $r7, $r7, 1
-    addi #r7, $r7, 1
+    addi $r7, $r7, 1
 
     or $r7, $r7, $r16 #combine and save
     sw $r7, 2050($r0)

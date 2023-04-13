@@ -72,7 +72,7 @@ get_next_byte:
     lw $r6, 2049($r0)
     sra $r6, $r6, 31
     bne $r1, $r6, read_data
-    jr get_next_byte
+    j get_next_byte
 
     read_data:
         #read the byte into r5
@@ -168,10 +168,19 @@ main:
     addi $r6, $r0, 17
     addi $r8, $r0, 0
     addi $r7, $r0, 0
+    jal send_cmd
 
     # Get first/response byte
     jal get_next_byte
 
     # Loop to get the next 512
+    addi $r17, $r0, 512
+    read_loop:
+        jal get_next_byte
+        # store r5 
+        addi $r17, $r17, -1
+        bne $r17, $r0, read_loop
 
     # Get last two crc bytes
+    #   or don't I'm not your dad
+

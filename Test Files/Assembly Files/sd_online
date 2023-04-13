@@ -1,0 +1,186 @@
+# $6, $7, $8, $9 are my parameter passers
+# r3 r5 is the return register
+# r1 is current value of toggle bit 
+# r15-20 are scratch work
+j main
+
+wait:  
+    # r6 has number of cycles to wait,
+    # will mutate r6, 
+    # r6 must be at least one
+
+    addiu $6, $0, -1
+    bne $6, $0, wait
+    jr $31
+
+prime_cmd:
+    addiu $6, $0, 512
+    sw $0, 2051($0)
+    sw $0, 2050($0)
+    jr $31
+
+set_toggle_bit:
+    lw $1, 2049($0)
+    sra $1, $1, 31
+    jr $31
+
+
+send_cmd:
+    # r6 is cmd
+    # r8 is args
+    # r7 is crc 
+    # first two addr 2051
+    # second four addr 2050
+
+    #set what the current toggle bit is
+    sw $31, 100($0)
+    jal set_toggle_bit
+    lw $31, 100($0)
+
+    ## Setting the bottom four bytes of the SD command
+    # get bottom 24 bits of args into the top 24 space
+    sll $16, $8, 8
+
+    # shift crc up one and set end bit
+    sll $7, $7, 1
+    addiu $7, $7, 1
+
+    or $7, $7, $16 #combine and save
+    sw $7, 2050($0)
+
+    ## Setting and Sending the Top two bytes of the SD COMMAND
+    # get top 8 bits of args
+    sra $16, $8, 24
+    addiu $15, $0, 255
+    and $16, $16, $15 #mask off top 24
+    
+    addiu $15, $0, 64 # set transmission bit 6th bit is set to one
+    or $6, $6, $15
+    sll $6, $6, 8 # shift trans bit and cmd index up eight
+    or $6, $6, $16 # combine command index with top 8 bits of args
+
+    addiu $15, $0, 1 #set the top bit
+    sll $15, $15, 31
+    or $6, $6, $15    
+
+    sw $6, 2051($0)
+    
+    jr $31
+
+get_next_byte:
+    # if toggle bit is different, read in the new data
+    lw $6, 2049($0)
+    sra $6, $6, 31
+    bne $1, $6, read_data
+    j get_next_byte
+
+    read_data:
+        #read the byte into r5
+        sll $5, $6, 1
+        sra $5, $5, 1
+
+        #set toggle to current
+        add $1, $6, $0
+    
+    jr $31
+
+get_r7_r3_response:
+    # the r1 response byte will be in $3
+    # the other four bytes will be in $5
+    sw $31, 200($0)
+    
+    jal get_next_byte
+    add $3, $0, $5
+
+    jal get_next_byte
+    add $15, $5, $0
+    sll $15, $15, 8
+
+    jal get_next_byte
+    add $15, $5, $15
+    sll $15, $15, 8
+
+    jal get_next_byte
+    add $15, $5, $15
+    sll $15, $15, 8
+
+    jal get_next_byte
+    add $5, $5, $15
+
+    lw $31, 200($0)
+    jr $31
+
+main:
+    ## Start of SPI with SD Card
+
+    # set r6 and r7 to be cmd0
+    addiu $7, $0, 148
+    addiu $6, $0, 0
+    addiu $8, $0, 0
+    jal send_cmd
+
+    jal get_next_byte
+
+    # send cmd8
+    addiu $6, $0, 8
+    addiu $8, $0, 426
+    addiu $7, $0, 134
+    jal send_cmd
+
+    addiu $6, $0, 4096
+    jal wait
+
+    # send cmd58
+    addiu $6, $0, 58
+    addiu $8, $0, 0
+    addiu $7, $0, 0
+    jal send_cmd
+
+    addiu $6, $0, 4096
+    jal wait
+
+    addiu $4, $0, 100
+
+    init_loop:
+        addiu $4, $4, -1
+
+        # send cmd55
+        addiu $6, $0, 55
+        addiu $8, $0, 0
+        addiu $7, $0, 0
+        jal send_cmd
+
+        addiu $6, $0, 4096
+        jal wait
+
+        # send cmd41
+        addiu $6, $0, 41
+        addiu $8, $0, 1
+        sll $8, $8, 30
+        addiu $7, $0, 0
+        jal send_cmd
+
+        bne $4, $0, init_loop
+
+    ## You can now read and write from the SD card!
+
+    # Send cmd 17 to request read
+    addiu $6, $0, 17
+    addiu $8, $0, 0
+    addiu $7, $0, 0
+    jal send_cmd
+
+    # Get first/response byte
+    jal get_next_byte
+
+    # Loop to get the next 512
+    addiu $17, $0, 512
+    read_loop:
+        jal get_next_byte
+        # store r5 
+        addiu $17, $17, -1
+        bne $17, $0, read_loop
+
+    # Get last two crc bytes
+    #   or don't I'm not your dad
+

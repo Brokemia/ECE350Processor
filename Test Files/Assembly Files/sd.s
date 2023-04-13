@@ -26,44 +26,44 @@ set_toggle_bit:
 
 
 send_cmd:
-    # r7 has first 
-    # r6 is crc
+    # r6 is cmd
     # r8 is args
-    # first two addr 2050
-    # second four addr 2051
+    # r7 is crc 
+    # first two addr 2051
+    # second four addr 2050
 
     #set what the current toggle bit is
     sw $r31, 100($r0)
     jal set_toggle_bit
     lw $r31, 100($r0)
 
+    ## Setting the bottom four bytes of the SD command
+    # get bottom 24 bits of args into the top 24 space
+    sll $r16, $r8, 8
 
+    # shift crc up one and set end bit
+    sll $r7, $r7, 1
+    addi #r7, $r7, 1
+
+    or $r7, $r7, $r16 #combine and save
+    sw $r7, 2050($r0)
+
+    ## Setting and Sending the Top two bytes of the SD COMMAND
     # get top 8 bits of args
     sra $r16, $r8, 24
     addi $r15, $r0, 255
     and $r16, $r16, $r15 #mask off top 24
-
-    addi $r15, $r0, 1 # set bottom bit to one
+    
+    addi $r15, $r0, 64 # set transmission bit 6th bit is set to one
     or $r6, $r6, $r15
-    sll $r6, $r6, 8 
-    or $r6, $r6, $r16 # combine command index with top 
+    sll $r6, $r6, 8 # shift trans bit and cmd index up eight
+    or $r6, $r6, $r16 # combine command index with top 8 bits of args
+
+    addi $r15, $r0, 1 #set the top bit
+    sll $r15, $r15, 31
+    or $r6, $r6, $r15    
 
     sw $r6, 2051($r0)
-    
-    # get bottom 24 bits of args
-    sll $r16, $r8, 8
-    addi $r15, $r0, 4095
-    sll $r15, $r15, 12
-    addi $r15, $r0, 4095
-    sll $r15, $r15, 8
-
-    and $r16, $r16, $r15 # mask off bottom 8
-
-    addi $r15, $r0, 1 #set the top bit and the first two as well so it will send
-    sll $r15, $r15, 31
-    or $r7, $r7, $r15
-    or $r7, $r7, $r16
-    sw $r7, 2050($r0)
     
     jr $r31
 

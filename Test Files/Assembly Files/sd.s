@@ -41,9 +41,9 @@ send_cmd:
     # get bottom 24 bits of args into the top 24 space
     sll $r16, $r8, 8
 
-    # shift crc up one and set end bit
-    sll $r7, $r7, 1
-    addi $r7, $r7, 1
+    # set bottom bit of crc to 1
+    addi $r15, $r0, 1
+    or $r7, $r7, $r15
 
     or $r7, $r7, $r16 #combine and save
     sw $r7, 2050($r0)
@@ -82,6 +82,14 @@ get_next_byte:
         #set toggle to current
         add $r1, $r6, $r0
     
+    # TEST
+    addi $r17, $r0, 12
+    addi $r18, $r0, 213
+    addi $r29, $r0, 1023
+    test:
+    nop
+    bne $r17, $r18, test
+
     jr $31
 
 get_r7_r3_response:
@@ -120,6 +128,7 @@ main:
     jal send_cmd
 
     jal get_next_byte
+
 
     # send cmd8
     addi $r6, $r0, 8

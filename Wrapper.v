@@ -24,13 +24,15 @@
  *
  **/
 
-module Wrapper (clock, rst, JA, BTN, SD);
-	input clock, rst;
+module Wrapper (clk, rst, JA, BTN, SD, LED);
+	input clk, rst;
 	input [4:0] BTN;
 	output [7:0] JA;
 	inout [7:0] SD;
+	output [15:0] LED;
 
 	wire rwe, mwe, reset, writeRAM;
+	reg clock = 1'b0;
 	wire[4:0] rd, rs1, rs2;
 	wire[31:0] instAddr, instData, 
 		rData, regA, regB,
@@ -83,12 +85,15 @@ module Wrapper (clock, rst, JA, BTN, SD);
 	reg SD_clk;
 	// SD clock is 512 times slower than the main clock
 	// Probably
-	reg [7:0] SD_clkCnt;
-	always @(posedge clock) begin
+	reg [/*7*/4:0] SD_clkCnt;
+	always @(posedge BTN[2]) begin
 		SD_clkCnt <= SD_clkCnt + 1;
 		if (SD_clkCnt == 0) begin
 			SD_clk <= ~SD_clk;
 		end
+		//if(SD_clkCnt[2]) begin
+			clock <= ~clock;
+		//end
 	end
 	
 	wire [47:0] SD_cmd;
@@ -99,5 +104,9 @@ module Wrapper (clock, rst, JA, BTN, SD);
 	MemoryMap MemMap(memAddr[11:0], memDataIn, memDataOut, mwe,
 		RAMDataOut, writeRAM, BTN, SD_responseByte, SD_response, SD_cmd, SD_start);
 
-	ila_0 debugger(clock, SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response, memAddr[11:0], memDataIn, memDataOut, mwe);
+	// Better Debugger
+	assign LED = { SD, SD_cmd[47:40] };
+
+	// Debugger
+	ila_0 debugger(clk, SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response, memAddr[11:0], memDataIn, memDataOut, mwe);
 endmodule

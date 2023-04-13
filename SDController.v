@@ -40,11 +40,6 @@ module SDController(
     reg [47:0] cmdBuffer = 48'd0;
     
     reg startPulse = 1'b0;
-    always @(posedge start) begin
-        if (!started) begin
-            
-        end
-    end
     always @(posedge clk) begin
         cmdBuffer <= started ? {cmdBuffer[46:0], 1'b1} : cmd;
         if (started) begin

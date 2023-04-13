@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1681157920">
+<GenRun Id="synth_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1681245491">
   <File Type="PA-TCL" Name="Wrapper.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="Wrapper_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="Wrapper_reports.tcl"/>
@@ -157,6 +157,7 @@
       </FileInfo>
     </File>
     <Config>
+      <Option Name="TargetConstrsFile" Val="$PPRDIR/../constraints.xdc"/>
       <Option Name="ConstrsType" Val="XDC"/>
     </Config>
   </FileSet>
@@ -167,7 +168,9 @@
     </Config>
   </FileSet>
   <Strategy Version="1" Minor="2">
-    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020"/>
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020">
+      <Desc>Vivado Synthesis Defaults</Desc>
+    </StratHandle>
     <Step Id="synth_design"/>
   </Strategy>
   <BlockFileSet Type="BlockSrcs" Name="ila_0"/>

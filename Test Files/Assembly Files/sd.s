@@ -198,7 +198,16 @@ main:
 tas:
     #r19 is current offset 
     addi $r19, $r0, 0
-    
+
+    tas_loop:
+        lw_rom $r29, 0($r19)
+        addi $r19, $r19, 1
+
+        debug_next:
+            lw $r5, 2048($r0)
+            bne $r5, $r0, tas_loop
+            j debug_next
+
 
 check_serial:
     addi $r6, $r0, 200

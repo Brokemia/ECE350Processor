@@ -69,4 +69,6 @@ print(cmds)
 with open("mem_files/1a.mem", "w") as f:
     test  = [''.join([str(x) for x in line]) for line in cmds]
     print(test)
-    f.writelines(test)
+    for line in cmds:
+        f.write(''.join([str(x) for x in line]))
+        f.write("\n")

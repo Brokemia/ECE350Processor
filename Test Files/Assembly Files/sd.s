@@ -196,6 +196,8 @@ main:
 
 
 tas:
+    #r19 is current offset 
+    addi $r19, $r0, 0
     
 
 check_serial:

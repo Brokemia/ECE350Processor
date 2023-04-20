@@ -1,4 +1,4 @@
-import serial
+import serial, struct
 
 # Button mapping for the processor encoding
 button_index = {
@@ -62,6 +62,6 @@ ser = serial.Serial(port='COM18', baudrate=115200)  # open serial port
 print(ser.name)         # check which port was really used
 for line in cmds:
     concated_cmd = ''.join([str(x) for x in line])
-    print(concated_cmd)
-    ser.write(int(concated_cmd, 2))     # write a string
+    print(concated_cmd, struct.pack(">H", int(concated_cmd, 2)))
+    ser.write(struct.pack(">H", int(concated_cmd, 2)))     # write a string
 ser.close()             # close port

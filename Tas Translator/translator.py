@@ -58,10 +58,17 @@ with open("Tases/1A.tas") as f:
 
 print(cmds)
 
-ser = serial.Serial(port='COM18', baudrate=115200)  # open serial port
-print(ser.name)         # check which port was really used
-for line in cmds:
-    concated_cmd = ''.join([str(x) for x in line])
-    print(concated_cmd, struct.pack(">H", int(concated_cmd, 2)))
-    ser.write(struct.pack(">H", int(concated_cmd, 2)))     # write a string
-ser.close()             # close port
+# ser = serial.Serial(port='COM18', baudrate=115200)  # open serial port
+# print(ser.name)         # check which port was really used
+# for line in cmds:
+#     concated_cmd = ''.join([str(x) for x in line])
+#     print(concated_cmd, struct.pack(">H", int(concated_cmd, 2)))
+#     ser.write(struct.pack(">H", int(concated_cmd, 2)))     # write a string
+# ser.close()             # close port
+
+with open("mem_files/1a.mem", "w") as f:
+    test  = [''.join([str(x) for x in line]) for line in cmds]
+    print(test)
+    for line in cmds:
+        f.write(''.join([str(x) for x in line]))
+        f.write("\n")

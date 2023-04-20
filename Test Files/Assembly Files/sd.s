@@ -197,3 +197,18 @@ main:
 
 tas:
     
+
+check_serial:
+    addi $r6, $r0, 200
+    sw $r6, 2052($r0)
+
+    serial_success:
+        lw $r5, 200($r0)
+        bne $r5, $r0, we_did_it
+        j serial_success
+
+    we_did_it:
+        addi $r29 $r0 1023
+
+    the_loop:
+        bne $r29, $r5, the_loop

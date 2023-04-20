@@ -24,7 +24,7 @@ module SDController(
     // Drive DO high
     //assign SD[4] = 1'b1;
     // Drive CS low when in use
-    assign SD[7] = !started;
+    assign SD[7] = 1'b0;
 
     wire byteCntReset;
     wire [3:0] byteCnt;
@@ -40,8 +40,9 @@ module SDController(
     reg [47:0] cmdBuffer = 48'd0;
     
     reg startPulse = 1'b0;
+    reg lastStart = 1'b0;
     always @(posedge clk) begin
-        cmdBuffer <= started ? {cmdBuffer[46:0], 1'b1} : cmd;
+        cmdBuffer <= {cmdBuffer[46:0], 1'b1};
         if (started) begin
             startPulse <= 1'b0;
             responseBuffer <= {responseBuffer[6:0], SD[4]};
@@ -49,9 +50,14 @@ module SDController(
                 responseByte <= ~responseByte;
                 response <= responseBuffer;
             end
-        end else if (start) begin
+        end
+        // On a positive edge of start, reset the thing
+        if (start && !lastStart) begin
             started <= 1'b1;
             startPulse <= 1'b1;
+            responseBuffer <= 8'hFF;
+            cmdBuffer <= cmd;
         end
+        lastStart <= start;
     end
 endmodule

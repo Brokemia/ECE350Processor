@@ -85,7 +85,7 @@ module Wrapper (clk, rst, JA, BTN, SD, LED);
 	reg SD_clk;
 	// SD clock is 512 times slower than the main clock
 	// Probably
-	reg [/*7*/4:0] SD_clkCnt;
+	reg [/*7*/1:0] SD_clkCnt;
 	always @(posedge BTN[2]) begin
 		SD_clkCnt <= SD_clkCnt + 1;
 		if (SD_clkCnt == 0) begin
@@ -101,7 +101,7 @@ module Wrapper (clk, rst, JA, BTN, SD, LED);
 	wire SD_start, SD_responseByte;
 	SDController SDModule(SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response);
 
-	MemoryMap MemMap(memAddr[11:0], memDataIn, memDataOut, mwe,
+	MemoryMap MemMap(clock, memAddr[11:0], memDataIn, memDataOut, mwe,
 		RAMDataOut, writeRAM, BTN, SD_responseByte, SD_response, SD_cmd, SD_start);
 
 	// Better Debugger

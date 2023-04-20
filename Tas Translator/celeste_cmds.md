@@ -1,0 +1,20 @@
+R = Right
+L = Left
+U = Up
+D = Down
+J = Jump / Confirm
+K = Jump Bind 2
+X = Dash / Talk / Cancel
+C = Dash Bind 2 / Cancel Bind 2
+Z = Crouch Dash
+V = Crouch Dash Bind 2
+G = Grab
+S = Pause
+Q = Quick Restart
+F = Feather Aim
+Format: F, angle, optional upper limit of single axis (default value is 1, range is 0.26 to 1, works in all analog modes)
+O = Confirm Bind 2
+N = Journal / Talk Bind 2
+A = Dash Only Directional Modifier (generally used to manipulate camera with binocular control storage. eg: 15,R,X,ALU)
+M = Move Only Directional Modifier (eg: 15,X,AL,MR)
+P = Custom Button Press Modifier (used to press inputs added by mods after binding them using the Set command, e.g. 15,R,X,PA after binding A to a custom input)

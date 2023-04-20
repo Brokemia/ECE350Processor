@@ -1,0 +1,20 @@
+# How we encode inputs
+
+### What xinput has
+BUTTON_A = 1,
+BUTTON_B = 2,
+BUTTON_X = 3,
+BUTTON_Y = 4,
+BUTTON_LB = 5,
+BUTTON_RB = 6,
+BUTTON_BACK = 7,
+BUTTON_START = 8,
+BUTTON_L3 = 9,
+BUTTON_R3 = 10,
+DPAD_UP = 11,
+DPAD_DOWN = 12,
+DPAD_LEFT = 13,
+DPAD_RIGHT = 14,
+TRIGGER_LEFT = 15,
+TRIGGER_RIGHT = 16,
+

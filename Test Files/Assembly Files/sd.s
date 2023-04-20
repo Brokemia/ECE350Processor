@@ -1,6 +1,7 @@
 # $r6, $r7, $r8, $r9 are my parameter passers
 # r3 r5 is the return register
 # r1 is current value of toggle bit 
+# r2 is next frame
 # r15-20 are scratch work
 j main
 
@@ -193,3 +194,6 @@ main:
     # Get last two crc bytes
     #   or don't I'm not your dad
 
+
+tas:
+    

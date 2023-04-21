@@ -204,7 +204,7 @@ tas:
         addi $r19, $r19, 1
 
         debug_next:
-            lw $r5, 2048($r0)
+            lw $r5, 2052($r0)
             bne $r5, $r0, tas_loop
             j debug_next
 

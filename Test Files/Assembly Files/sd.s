@@ -119,7 +119,7 @@ get_r7_r3_response:
     lw $r31, 200($r0)
     jr $r31
 
-main:
+sd:
     ## Start of SPI with SD Card
 
     # set r6 and r7 to be cmd0

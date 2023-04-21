@@ -24,17 +24,18 @@
  *
  **/
 
-module Wrapper (clk, rst, JA, BTN, SD, LED);
-	input clk, rst;
+module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
+	input clk, rst, serialIn;
+	output serialOut;
 	input [4:0] BTN;
-	output [7:0] JA;
+	output [7:0] JA, JB;
 	inout [7:0] SD;
 	output [15:0] LED;
 
 	wire rwe, mwe, reset, writeRAM;
 	reg clock = 1'b0;
 	wire[4:0] rd, rs1, rs2;
-	wire[31:0] instAddr, instData, 
+	wire[31:0] instAddr, instData, romAddr, romData,
 		rData, regA, regB,
 		memAddr, memDataIn, memDataOut, RAMDataOut;
 
@@ -42,12 +43,16 @@ module Wrapper (clk, rst, JA, BTN, SD, LED);
 
 	// ADD YOUR MEMORY FILE HERE
 	localparam INSTR_FILE = "program";
+	localparam TAS_FILE = "1a";
 	
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
 								
 		// ROM
 		.address_imem(instAddr), .q_imem(instData),
+
+		// TAS ROM
+		.address_rom(romAddr), .q_rom(romData),
 									
 		// Regfile
 		.ctrl_writeEnable(rwe),     .ctrl_writeReg(rd),
@@ -63,9 +68,16 @@ module Wrapper (clk, rst, JA, BTN, SD, LED);
 	InstMem(.clk(clock), 
 		.addr(instAddr[11:0]), 
 		.dataOut(instData));
+
+	// TAS Memory (ROM)
+	ROM #(.DATA_WIDTH(16), .MEMFILE({TAS_FILE, ".mem"}))
+	TASMem(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(romData));
 	
 	wire [31:0] data_r29;
 	assign JA = data_r29[7:0];
+	assign JB = data_r29[15:8];
 
 	// Register File
 	regfile RegisterFile(.clock(clock), 
@@ -80,20 +92,23 @@ module Wrapper (clk, rst, JA, BTN, SD, LED);
 		.wEn(writeRAM), 
 		.addr(memAddr[11:0]), 
 		.dataIn(memDataIn), 
-		.dataOut(RAMDataOut));
+		.dataOut(RAMDataOut),
+		.wEn2(UART_writeEnable),
+		.addr2(UART_writeAddr),
+		.dataIn2(UART_writeData));
 
 	reg SD_clk;
 	// SD clock is 512 times slower than the main clock
 	// Probably
-	reg [/*7*/1:0] SD_clkCnt;
-	always @(posedge BTN[2]) begin
+	reg [7:0] SD_clkCnt;
+	always @(posedge clk) begin
 		SD_clkCnt <= SD_clkCnt + 1;
 		if (SD_clkCnt == 0) begin
 			SD_clk <= ~SD_clk;
 		end
-		//if(SD_clkCnt[2]) begin
+		if(SD_clkCnt[1] && SD_clkCnt[0]) begin
 			clock <= ~clock;
-		//end
+		end
 	end
 	
 	wire [47:0] SD_cmd;
@@ -101,12 +116,19 @@ module Wrapper (clk, rst, JA, BTN, SD, LED);
 	wire SD_start, SD_responseByte;
 	SDController SDModule(SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response);
 
+	//UART SerialModule(clk, serialIn, serialOut, UART_setAddr, UART_startAddr, UART_err, UART_writeAddr, UART_writeData, UART_writeEnable);
+	UART_simple SerialModule(clk, serialIn, serialOut, UART_err, UART_lastByte);
+
 	MemoryMap MemMap(clock, memAddr[11:0], memDataIn, memDataOut, mwe,
-		RAMDataOut, writeRAM, BTN, SD_responseByte, SD_response, SD_cmd, SD_start);
+		RAMDataOut, writeRAM, BTN, SD_responseByte, SD_response, SD_cmd, SD_start, UART_setAddr, UART_startAddr, UART_lastByte);
 
 	// Better Debugger
-	assign LED = { SD, SD_cmd[47:40] };
+	assign LED[15:1] = { SD, UART_setAddr };
+
+	// Error LED
+	assign LED[0] = UART_err;
 
 	// Debugger
-	ila_0 debugger(clk, SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response, memAddr[11:0], memDataIn, memDataOut, mwe);
+	//ila_0 debugger(clk, SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response, memAddr[11:0], memDataIn, memDataOut, mwe, clock);
+	ila_1 debugger(clk, clock, serialIn, serialOut, UART_writeAddr, UART_writeData, memAddr[11:0], memDataIn, memDataOut, mwe);
 endmodule

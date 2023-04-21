@@ -2,8 +2,8 @@
 # Vivado v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Thu Apr 13 15:04:04 2023
-# Process ID: 75568
+# Start of session at: Thu Apr 20 20:02:44 2023
+# Process ID: 50608
 # Current directory: C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.runs/synth_1
 # Command line: vivado.exe -log Wrapper.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Wrapper.tcl
 # Log file: C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.runs/synth_1/Wrapper.vds
@@ -17,23 +17,32 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a100
 INFO: [Device 21-403] Loading part xc7a100tcsg324-1
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 60408
-WARNING: [Synth 8-6901] identifier 'isMultDiv' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:67]
-WARNING: [Synth 8-6901] identifier 'multDivReady' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:67]
-WARNING: [Synth 8-6901] identifier 'bypassedA' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:74]
-WARNING: [Synth 8-6901] identifier 'latchXM_O' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:128]
-WARNING: [Synth 8-6901] identifier 'writebackShouldWriteReg' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:129]
-WARNING: [Synth 8-6901] identifier 'latchXM_O' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:130]
-WARNING: [Synth 8-6901] identifier 'writebackShouldWriteReg' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:131]
-WARNING: [Synth 8-6901] identifier 'writebackShouldWriteReg' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:178]
-WARNING: [Synth 8-6901] identifier 'SD_responseBuffer' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:38]
+INFO: [Synth 8-7075] Helper process launched with PID 69756
+WARNING: [Synth 8-6901] identifier 'isMultDiv' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:75]
+WARNING: [Synth 8-6901] identifier 'multDivReady' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:75]
+WARNING: [Synth 8-6901] identifier 'bypassedA' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:82]
+WARNING: [Synth 8-6901] identifier 'latchXM_O' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:136]
+WARNING: [Synth 8-6901] identifier 'writebackShouldWriteReg' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:137]
+WARNING: [Synth 8-6901] identifier 'latchXM_O' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:138]
+WARNING: [Synth 8-6901] identifier 'writebackShouldWriteReg' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:139]
+WARNING: [Synth 8-6901] identifier 'writebackShouldWriteReg' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:187]
+WARNING: [Synth 8-2292] literal value truncated to fit in 3 bits [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:27]
+WARNING: [Synth 8-2292] literal value truncated to fit in 3 bits [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:30]
+WARNING: [Synth 8-2292] literal value truncated to fit in 3 bits [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:34]
+WARNING: [Synth 8-2292] literal value truncated to fit in 3 bits [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:42]
+WARNING: [Synth 8-2292] literal value truncated to fit in 3 bits [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:45]
+WARNING: [Synth 8-2292] literal value truncated to fit in 3 bits [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:48]
+WARNING: [Synth 8-2292] literal value truncated to fit in 3 bits [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:51]
+WARNING: [Synth 8-2292] literal value truncated to fit in 3 bits [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:54]
+WARNING: [Synth 8-6901] identifier 'SD_responseBuffer' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:46]
 WARNING: [Synth 8-6901] identifier 'startPulse' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/SDController.v:34]
 WARNING: [Synth 8-6901] identifier 'cmdBuffer' is used before its declaration [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/SDController.v:38]
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 1013.145 ; gain = 0.000
+Starting RTL Elaboration : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 1012.805 ; gain = 0.000
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'Wrapper' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
 	Parameter INSTR_FILE bound to: program - type: string 
+	Parameter TAS_FILE bound to: 1a - type: string 
 INFO: [Synth 8-6157] synthesizing module 'processor' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/processor.v:20]
 INFO: [Synth 8-6157] synthesizing module 'register32' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/register.v:21]
 INFO: [Synth 8-6157] synthesizing module 'dffe_ref' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/dffe_ref.v:1]
@@ -79,6 +88,14 @@ INFO: [Synth 8-6157] synthesizing module 'ROM' [C:/Users/rrwth/OneDrive/Document
 	Parameter MEMFILE bound to: 88'b0111000001110010011011110110011101110010011000010110110100101110011011010110010101101101 
 INFO: [Synth 8-3876] $readmem data file 'program.mem' is read successfully [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/ROM.v:11]
 INFO: [Synth 8-6155] done synthesizing module 'ROM' (20#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/ROM.v:2]
+INFO: [Synth 8-6157] synthesizing module 'ROM__parameterized0' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/ROM.v:2]
+	Parameter DATA_WIDTH bound to: 16 - type: integer 
+	Parameter ADDRESS_WIDTH bound to: 12 - type: integer 
+	Parameter DEPTH bound to: 4096 - type: integer 
+	Parameter MEMFILE bound to: 48'b001100010110000100101110011011010110010101101101 
+INFO: [Synth 8-3876] $readmem data file '1a.mem' is read successfully [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/ROM.v:11]
+INFO: [Synth 8-6155] done synthesizing module 'ROM__parameterized0' (20#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/ROM.v:2]
+WARNING: [Synth 8-689] width (32) of port connection 'dataOut' does not match port width (16) of module 'ROM__parameterized0' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:76]
 INFO: [Synth 8-6157] synthesizing module 'regfile' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/regfile.v:1]
 INFO: [Synth 8-6157] synthesizing module 'tristate32' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/tristate.v:1]
 INFO: [Synth 8-6155] done synthesizing module 'tristate32' (21#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/tristate.v:1]
@@ -94,78 +111,88 @@ INFO: [Synth 8-6157] synthesizing module 'SDController' [C:/Users/rrwth/OneDrive
 INFO: [Synth 8-6157] synthesizing module 'counter4' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/counter.v:19]
 INFO: [Synth 8-6155] done synthesizing module 'counter4' (25#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/counter.v:19]
 INFO: [Synth 8-6155] done synthesizing module 'SDController' (26#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/SDController.v:8]
+INFO: [Synth 8-6157] synthesizing module 'UART_simple' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/uart2.v:3]
+INFO: [Synth 8-6155] done synthesizing module 'UART_simple' (27#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/uart2.v:3]
+WARNING: [Synth 8-689] width (1) of port connection 'lastByte' does not match port width (8) of module 'UART_simple' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:120]
 INFO: [Synth 8-6157] synthesizing module 'MemoryMap' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:1]
-INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:21]
-WARNING: [Synth 8-567] referenced signal 'SD_responseBuffer' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:32]
-WARNING: [Synth 8-567] referenced signal 'SD_cmd_reg' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:32]
-WARNING: [Synth 8-567] referenced signal 'SD_start' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:32]
-WARNING: [Synth 8-567] referenced signal 'SD_response' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:55]
-INFO: [Synth 8-6155] done synthesizing module 'MemoryMap' (27#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:1]
-WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:111]
-INFO: [Synth 8-6157] synthesizing module 'ila_0' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.runs/synth_1/.Xil/Vivado-75568-DESKTOP-VN8895K/realtime/ila_0_stub.v:6]
-INFO: [Synth 8-6155] done synthesizing module 'ila_0' (28#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.runs/synth_1/.Xil/Vivado-75568-DESKTOP-VN8895K/realtime/ila_0_stub.v:6]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'debugger'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:111]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'SDModule'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:102]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'MemMap'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:104]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'CPU'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:47]
-INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ProcMem'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:79]
-INFO: [Synth 8-6155] done synthesizing module 'Wrapper' (29#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
+INFO: [Synth 8-155] case statement is not full and has no default [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:26]
+WARNING: [Synth 8-567] referenced signal 'SD_responseBuffer' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:40]
+WARNING: [Synth 8-567] referenced signal 'SD_cmd_reg' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:40]
+WARNING: [Synth 8-567] referenced signal 'SD_start' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:40]
+WARNING: [Synth 8-567] referenced signal 'UART_lastByte' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:40]
+WARNING: [Synth 8-567] referenced signal 'SD_response' should be on the sensitivity list [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:66]
+INFO: [Synth 8-6155] done synthesizing module 'MemoryMap' (28#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v:1]
+WARNING: [Synth 8-689] width (1) of port connection 'UART_addr' does not match port width (12) of module 'MemoryMap' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:123]
+WARNING: [Synth 8-4446] all outputs are unconnected for this instance and logic may be removed [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:133]
+INFO: [Synth 8-6157] synthesizing module 'ila_1' [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.runs/synth_1/.Xil/Vivado-50608-DESKTOP-VN8895K/realtime/ila_1_stub.v:6]
+INFO: [Synth 8-6155] done synthesizing module 'ila_1' (29#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.runs/synth_1/.Xil/Vivado-50608-DESKTOP-VN8895K/realtime/ila_1_stub.v:6]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'debugger'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:133]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'MemMap'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:122]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'ProcMem'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:91]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'RegisterFile'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:83]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'TASMem'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:74]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'InstMem'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:68]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'CPU'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:49]
+INFO: [Synth 8-6071] Mark debug on the nets applies keep_hierarchy on instance 'SerialModule'. This will prevent further optimization [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:120]
+INFO: [Synth 8-6155] done synthesizing module 'Wrapper' (30#1) [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1013.145 ; gain = 0.000
+Finished RTL Elaboration : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 1012.805 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1013.145 ; gain = 0.000
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1012.805 ; gain = 0.000
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1013.145 ; gain = 0.000
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:12 ; elapsed = 00:00:14 . Memory (MB): peak = 1012.805 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.135 . Memory (MB): peak = 1013.145 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.228 . Memory (MB): peak = 1012.805 ; gain = 0.000
 INFO: [Project 1-570] Preparing netlist for logic optimization
 
 Processing XDC Constraints
 Initializing timing engine
-Parsing XDC File [c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_0/ila_0/ila_0_in_context.xdc] for cell 'debugger'
-Finished Parsing XDC File [c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_0/ila_0/ila_0_in_context.xdc] for cell 'debugger'
+Parsing XDC File [c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_1/ila_1_in_context.xdc] for cell 'debugger'
+Finished Parsing XDC File [c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_1/ila_1_in_context.xdc] for cell 'debugger'
 Parsing XDC File [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/constraints.xdc]
 Finished Parsing XDC File [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/constraints.xdc]
 INFO: [Project 1-236] Implementation specific constraints were found while reading constraint file [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/constraints.xdc]. These constraints will be ignored for synthesis but will be used in implementation. Impacted constraints are listed in the file [.Xil/Wrapper_propImpl.xdc].
 Resolution: To avoid this warning, move constraints listed in [.Xil/Wrapper_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1081.781 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.019 . Memory (MB): peak = 1082.457 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.027 . Memory (MB): peak = 1081.781 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.094 . Memory (MB): peak = 1082.457 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1081.781 ; gain = 68.637
+Finished Constraint Validation : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 1082.457 ; gain = 69.652
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7a100tcsg324-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1081.781 ; gain = 68.637
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 1082.457 ; gain = 69.652
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 Applied set_property DONT_TOUCH = true for debugger. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1081.781 ; gain = 68.637
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 1082.457 ; gain = 69.652
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:16 ; elapsed = 00:00:17 . Memory (MB): peak = 1081.781 ; gain = 68.637
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:28 ; elapsed = 00:00:31 . Memory (MB): peak = 1082.457 ; gain = 69.652
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
 ---------------------------------------------------------------------------------
 Detailed RTL Component Info : 
 +---Adders : 
-	   2 Input    2 Bit       Adders := 1     
+	   2 Input   12 Bit       Adders := 1     
+	   2 Input    8 Bit       Adders := 1     
+	   2 Input    4 Bit       Adders := 1     
 +---XORs : 
 	   3 Input      1 Bit         XORs := 129   
 	   2 Input      1 Bit         XORs := 4     
@@ -173,22 +200,24 @@ Detailed RTL Component Info :
 	               48 Bit    Registers := 2     
 	               32 Bit    Registers := 1     
 	               31 Bit    Registers := 1     
-	                8 Bit    Registers := 2     
-	                2 Bit    Registers := 1     
-	                1 Bit    Registers := 1511  
+	               11 Bit    Registers := 1     
+	                8 Bit    Registers := 5     
+	                4 Bit    Registers := 1     
+	                1 Bit    Registers := 1514  
 +---RAMs : 
 	             128K Bit	(4096 X 32 bit)          RAMs := 1     
 +---ROMs : 
-	                    ROMs := 1     
+	                    ROMs := 2     
 +---Muxes : 
 	   2 Input   48 Bit        Muxes := 1     
-	   4 Input   48 Bit        Muxes := 1     
-	   2 Input   32 Bit        Muxes := 50    
-	   4 Input   32 Bit        Muxes := 1     
+	   5 Input   48 Bit        Muxes := 1     
+	   2 Input   32 Bit        Muxes := 51    
+	   2 Input   12 Bit        Muxes := 1     
 	   2 Input    5 Bit        Muxes := 8     
 	   3 Input    5 Bit        Muxes := 1     
 	   3 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 13    
+	   2 Input    1 Bit        Muxes := 18    
+	   4 Input    1 Bit        Muxes := 2     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -205,18 +234,19 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:45 ; elapsed = 00:00:46 . Memory (MB): peak = 1087.285 ; gain = 74.141
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:13 ; elapsed = 00:01:17 . Memory (MB): peak = 1082.457 ; gain = 69.652
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 
 ROM: Preliminary Mapping	Report
-+------------+---------------------+---------------+----------------+
-|Module Name | RTL Object          | Depth x Width | Implemented As | 
-+------------+---------------------+---------------+----------------+
-|Wrapper     | InstMem/dataOut_reg | 4096x31       | Block RAM      | 
-+------------+---------------------+---------------+----------------+
++------------+-------------+---------------+----------------+
+|Module Name | RTL Object  | Depth x Width | Implemented As | 
++------------+-------------+---------------+----------------+
+|ROM         | dataOut_reg | 4096x31       | Block RAM      | 
+|ROM         | dataOut_reg | 4096x11       | Block RAM      | 
++------------+-------------+---------------+----------------+
 
 
 Block RAM: Preliminary Mapping	Report (see note below)
@@ -234,13 +264,13 @@ Finished ROM, RAM, DSP and Shift Register Reporting
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:53 ; elapsed = 00:00:54 . Memory (MB): peak = 1087.285 ; gain = 74.141
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:25 ; elapsed = 00:01:29 . Memory (MB): peak = 1082.457 ; gain = 69.652
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:54 ; elapsed = 00:00:55 . Memory (MB): peak = 1087.285 ; gain = 74.141
+Finished Timing Optimization : Time (s): cpu = 00:01:28 ; elapsed = 00:01:31 . Memory (MB): peak = 1089.293 ; gain = 76.488
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -259,16 +289,18 @@ Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-7052] The timing for the instance ProcMem/MemoryArray_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance ProcMem/MemoryArray_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance ProcMem/MemoryArray_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
-INFO: [Synth 8-7052] The timing for the instance ProcMem/MemoryArray_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance InstMem/dataOut_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance InstMem/dataOut_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance InstMem/dataOut_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 INFO: [Synth 8-7052] The timing for the instance InstMem/dataOut_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance TASMem/dataOut_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance TASMem/dataOut_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance ProcMem/MemoryArray_reg_0 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance ProcMem/MemoryArray_reg_1 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance ProcMem/MemoryArray_reg_2 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
+INFO: [Synth 8-7052] The timing for the instance ProcMem/MemoryArray_reg_3 (implemented as a Block RAM) might be sub-optimal as no optional output register could be merged into the ram block. Providing additional output register may help in improving timing.
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:56 ; elapsed = 00:00:57 . Memory (MB): peak = 1136.562 ; gain = 123.418
+Finished Technology Mapping : Time (s): cpu = 00:01:31 ; elapsed = 00:01:35 . Memory (MB): peak = 1164.590 ; gain = 151.785
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -285,46 +317,61 @@ Start Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
-CRITICAL WARNING: [Synth 8-6030] Inout pin 'SD[7]' is read and/or written without using tristate logic. Proper direction of connection may be wrongly inferred. Please use specific direction to avoid any incorrect logic issue [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
+WARNING: [Synth 8-3295] tying undriven pin UART_writeAddr_inferred:in0 to constant 0
+WARNING: [Synth 8-3295] tying undriven pin UART_writeData_inferred:in0 to constant 0
 CRITICAL WARNING: [Synth 8-6030] Inout pin 'SD[6]' is read and/or written without using tristate logic. Proper direction of connection may be wrongly inferred. Please use specific direction to avoid any incorrect logic issue [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
 CRITICAL WARNING: [Synth 8-6030] Inout pin 'SD[5]' is read and/or written without using tristate logic. Proper direction of connection may be wrongly inferred. Please use specific direction to avoid any incorrect logic issue [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
 CRITICAL WARNING: [Synth 8-6030] Inout pin 'SD[4]' is read and/or written without using tristate logic. Proper direction of connection may be wrongly inferred. Please use specific direction to avoid any incorrect logic issue [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
 CRITICAL WARNING: [Synth 8-6030] Inout pin 'SD[3]' is read and/or written without using tristate logic. Proper direction of connection may be wrongly inferred. Please use specific direction to avoid any incorrect logic issue [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
 CRITICAL WARNING: [Synth 8-6030] Inout pin 'SD[2]' is read and/or written without using tristate logic. Proper direction of connection may be wrongly inferred. Please use specific direction to avoid any incorrect logic issue [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
 CRITICAL WARNING: [Synth 8-6030] Inout pin 'SD[1]' is read and/or written without using tristate logic. Proper direction of connection may be wrongly inferred. Please use specific direction to avoid any incorrect logic issue [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
-CRITICAL WARNING: [Synth 8-6030] Inout pin 'SD[0]' is read and/or written without using tristate logic. Proper direction of connection may be wrongly inferred. Please use specific direction to avoid any incorrect logic issue [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v:27]
+WARNING: [Synth 8-5396] Clock pin CLKARDCLK has keep related attribute (keep/mark_debug/dont_touch) which could create extra logic on its net [C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/ROM.v:16]
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:00 ; elapsed = 00:01:02 . Memory (MB): peak = 1142.395 ; gain = 129.250
+Finished IO Insertion : Time (s): cpu = 00:01:37 ; elapsed = 00:01:41 . Memory (MB): peak = 1170.367 ; gain = 157.562
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:00 ; elapsed = 00:01:02 . Memory (MB): peak = 1142.395 ; gain = 129.250
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:37 ; elapsed = 00:01:41 . Memory (MB): peak = 1170.367 ; gain = 157.562
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:01 ; elapsed = 00:01:02 . Memory (MB): peak = 1142.395 ; gain = 129.250
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:38 ; elapsed = 00:01:41 . Memory (MB): peak = 1170.367 ; gain = 157.562
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:01 ; elapsed = 00:01:02 . Memory (MB): peak = 1142.395 ; gain = 129.250
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:38 ; elapsed = 00:01:42 . Memory (MB): peak = 1170.367 ; gain = 157.562
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:01 ; elapsed = 00:01:02 . Memory (MB): peak = 1142.578 ; gain = 129.434
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:38 ; elapsed = 00:01:42 . Memory (MB): peak = 1170.445 ; gain = 157.641
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:01 ; elapsed = 00:01:02 . Memory (MB): peak = 1142.578 ; gain = 129.434
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:38 ; elapsed = 00:01:42 . Memory (MB): peak = 1170.445 ; gain = 157.641
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+Static Shift Register Report:
++------------+-------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|Module Name | RTL Name    | Length | Width | Reset Signal | Pull out first Reg | Pull out last Reg | SRL16E | SRLC32E | 
++------------+-------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+|UART_simple | byte_reg[0] | 8      | 1     | NO           | NO                 | YES               | 1      | 0       | 
++------------+-------------+--------+-------+--------------+--------------------+-------------------+--------+---------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -334,7 +381,7 @@ Report BlackBoxes:
 +------+--------------+----------+
 |      |BlackBox name |Instances |
 +------+--------------+----------+
-|1     |ila_0         |         1|
+|1     |ila_1         |         1|
 +------+--------------+----------+
 
 Report Cell Usage: 
@@ -343,42 +390,45 @@ Report Cell Usage:
 +------+---------+------+
 |1     |ila      |     1|
 |2     |BUFG     |     3|
-|3     |LUT1     |     6|
-|4     |LUT2     |   311|
-|5     |LUT3     |   363|
-|6     |LUT4     |   291|
-|7     |LUT5     |   527|
-|8     |LUT6     |  1560|
-|9     |MUXF7    |     1|
-|10    |RAMB36E1 |     8|
-|15    |FDCE     |  1392|
-|16    |FDRE     |   178|
-|17    |FDSE     |     9|
-|18    |IBUF     |    11|
-|19    |OBUF     |    28|
+|3     |CARRY4   |     6|
+|4     |LUT1     |    85|
+|5     |LUT2     |   307|
+|6     |LUT3     |   328|
+|7     |LUT4     |   315|
+|8     |LUT5     |   536|
+|9     |LUT6     |  1597|
+|10    |MUXF7    |     1|
+|11    |RAMB18E1 |     1|
+|12    |RAMB36E1 |     9|
+|18    |SRL16E   |     1|
+|19    |FDCE     |  1394|
+|20    |FDRE     |   199|
+|21    |FDSE     |    15|
+|22    |IBUF     |    12|
+|23    |OBUF     |    37|
 +------+---------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:01 ; elapsed = 00:01:02 . Memory (MB): peak = 1142.578 ; gain = 129.434
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:38 ; elapsed = 00:01:42 . Memory (MB): peak = 1170.445 ; gain = 157.641
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 8 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:50 ; elapsed = 00:00:59 . Memory (MB): peak = 1142.578 ; gain = 60.797
-Synthesis Optimization Complete : Time (s): cpu = 00:01:01 ; elapsed = 00:01:03 . Memory (MB): peak = 1142.578 ; gain = 129.434
+Synthesis finished with 0 errors, 6 critical warnings and 3 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:21 ; elapsed = 00:01:36 . Memory (MB): peak = 1170.445 ; gain = 87.988
+Synthesis Optimization Complete : Time (s): cpu = 00:01:39 ; elapsed = 00:01:43 . Memory (MB): peak = 1170.445 ; gain = 157.641
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.107 . Memory (MB): peak = 1154.750 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 9 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.174 . Memory (MB): peak = 1182.480 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 17 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.005 . Memory (MB): peak = 1154.750 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.007 . Memory (MB): peak = 1182.480 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-88 Infos, 16 Warnings, 8 Critical Warnings and 0 Errors encountered.
+98 Infos, 31 Warnings, 6 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:09 ; elapsed = 00:01:11 . Memory (MB): peak = 1154.750 ; gain = 141.605
+synth_design: Time (s): cpu = 00:01:49 ; elapsed = 00:02:04 . Memory (MB): peak = 1182.480 ; gain = 169.676
 INFO: [Common 17-600] The following parameters have non-default value.
 tcl.collectionResultDisplayLimit
 INFO: [Common 17-1381] The checkpoint 'C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.runs/synth_1/Wrapper.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file Wrapper_utilization_synth.rpt -pb Wrapper_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Apr 13 15:05:22 2023...
+INFO: [Common 17-206] Exiting Vivado at Thu Apr 20 20:05:09 2023...

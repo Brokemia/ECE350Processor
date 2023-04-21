@@ -90,7 +90,10 @@ set_property ip_output_repo c:/Users/rrwth/OneDrive/Documents/College/ECE350/Che
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_mem C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/program.mem
+read_mem {
+  C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/program.mem
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/1a.mem}
+}
 read_verilog -library xil_defaultlib {
   C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/RAM.v
   C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/ROM.v
@@ -110,12 +113,20 @@ read_verilog -library xil_defaultlib {
   C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Wrapper.v
   C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/MemoryMap.v
   C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/SDController.v
+  C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/uart.v
+  C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/uart2.v
 }
 read_ip -quiet C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_0/ila_0.xci
 set_property used_in_synthesis false [get_files -all c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_0/ila_v6_2/constraints/ila_impl.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_0/ila_v6_2/constraints/ila.xdc]
 set_property used_in_implementation false [get_files -all c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_0/ila_0_ooc.xdc]
+
+read_ip -quiet c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_1.xci
+set_property used_in_synthesis false [get_files -all c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_v6_2/constraints/ila_impl.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_v6_2/constraints/ila.xdc]
+set_property used_in_implementation false [get_files -all c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_1_ooc.xdc]
 
 OPTRACE "Adding files" END { }
 # Mark all dcp files as not used in implementation to prevent them from being

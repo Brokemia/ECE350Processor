@@ -15,4 +15,6 @@ ROM.v
 SDController.v
 shift.v
 tristate.v
+uart.v
+uart2.v
 Wrapper.v

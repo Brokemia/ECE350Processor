@@ -3,7 +3,7 @@
 # r1 is current value of toggle bit 
 # r2 is next frame
 # r15-20 are scratch work
-j main
+j tas
 
 wait:  
     # r6 has number of cycles to wait,
@@ -200,7 +200,7 @@ tas:
     addi $r19, $r0, 0
 
     tas_loop:
-        lw_rom $r29, 0($r19)
+        lw_rom $r29, $r19, 0
         addi $r19, $r19, 1
 
         debug_next:

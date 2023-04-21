@@ -26,6 +26,10 @@ module processor(
     address_imem,                   // O: The address of the data to get from imem
     q_imem,                         // I: The data from imem
 
+    // TAS mem
+    address_rom,                    // O: The address of the data to get from rom
+    q_rom,                          // I: The data from rom
+
     // Dmem
     address_dmem,                   // O: The address of the data to get or put from/to dmem
     data,                           // O: The data to write to dmem
@@ -49,6 +53,10 @@ module processor(
 	// Imem
     output [31:0] address_imem;
 	input [31:0] q_imem;
+
+    // TAS mem
+    output [31:0] address_rom;
+    input [31:0] q_rom;
 
 	// Dmem
 	output [31:0] address_dmem, data;
@@ -111,11 +119,11 @@ module processor(
         executeBranch, bltVsBne, memoryShouldWriteReg, executeBEX, hadException, exceptionMux;
     
     // Stall if load before using reg
-    assign stallFD = latchDX_IR[31:27] == 5'b01000 &&
+    assign stallFD = latchDX_IR[31:28] == 4'b0100 &&
         (ctrl_readRegA == latchDX_IR[26:22] ||
         (ctrl_readRegB == latchDX_IR[26:22] && latchFD_IR[31:27] != 5'b00111));
     
-    assign executeIType = latchDX_IR[31:27] == 5'b01000 || (latchDX_IR[31:29] == 3'b001 && latchDX_IR[27]);
+    assign executeIType = latchDX_IR[31:28] == 4'b0100 || (latchDX_IR[31:29] == 3'b001 && latchDX_IR[27]);
     assign executeJAL = latchDX_IR[31:27] == 5'b00011;
     assign bltVsBne = latchDX_IR[29];
     assign executeBranch = latchDX_IR[31:30] == 2'b00 && latchDX_IR[28:27] == 2'b10;
@@ -172,6 +180,7 @@ module processor(
     /* MEMORY */
     wire [31:0] memoryOutput, bypassedMemData;
     assign address_dmem = latchXM_O;
+    assign address_rom = latchXM_O;
 
     // Bypass to replace occurrences of latchXM_B if needed
     // WM
@@ -180,12 +189,12 @@ module processor(
     assign data = bypassedMemData;
     assign wren = latchXM_IR[31:27] == 5'b00111;
 
-    assign memoryOutput = latchXM_IR[31:27] == 5'b01000 ? q_dmem : latchXM_O;
+    assign memoryOutput = latchXM_IR[31:28] == 4'b0100 ? (latchXM_IR[27] ? q_rom : q_dmem) : latchXM_O;
 
     //`define shouldWriteReg(IR) IR[31:27] == 5'b00000 || IR[31:27] == 5'b00101 || IR[31:27] == 5'b01000 || IR[31:27] == 5'b00011;
     //`define whichWriteReg(IR) IR[31:27] == 5'b00011 ? 5'd31 : IR[26:22];
 
-    assign memoryShouldWriteReg = latchXM_Exception || latchXM_IR[31:27] == 5'b10101 || latchXM_IR[31:27] == 5'b00000 || latchXM_IR[31:27] == 5'b00101 || latchXM_IR[31:27] == 5'b01000 || latchXM_IR[31:27] == 5'b00011;
+    assign memoryShouldWriteReg = latchXM_Exception || latchXM_IR[31:27] == 5'b10101 || latchXM_IR[31:27] == 5'b00000 || latchXM_IR[31:27] == 5'b00101 || latchXM_IR[31:28] == 4'b0100 || latchXM_IR[31:27] == 5'b00011;
     assign memoryWhichWriteReg = (latchXM_Exception || latchXM_IR[31:27] == 5'b10101) ? 5'd30 : (latchXM_IR[31:27] == 5'b00011 ? 5'd31 : latchXM_IR[26:22]);
 
     //Latch
@@ -197,7 +206,7 @@ module processor(
 
     /* WRITEBACK */
     wire writebackShouldWriteReg;
-    assign writebackShouldWriteReg = latchMW_Exception || latchMW_IR[31:27] == 5'b10101 || latchMW_IR[31:27] == 5'b00000 || latchMW_IR[31:27] == 5'b00101 || latchMW_IR[31:27] == 5'b01000 || latchMW_IR[31:27] == 5'b00011;
+    assign writebackShouldWriteReg = latchMW_Exception || latchMW_IR[31:27] == 5'b10101 || latchMW_IR[31:27] == 5'b00000 || latchMW_IR[31:27] == 5'b00101 || latchMW_IR[31:28] == 4'b0100 || latchMW_IR[31:27] == 5'b00011;
     assign ctrl_writeEnable = writeEnable && writebackShouldWriteReg;
     // jal writes specifically to r31, and setx writes to r30
     assign ctrl_writeReg = (latchMW_Exception || latchMW_IR[31:27] == 5'b10101) ? 5'd30 : (latchMW_IR[31:27] == 5'b00011 ? 5'd31 : latchMW_IR[26:22]);

@@ -70,14 +70,14 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 		.dataOut(instData));
 
 	// TAS Memory (ROM)
-	ROM #(.DATA_WIDTH(16), .MEMFILE({TAS_FILE, ".mem"}))
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE, ".mem"}))
 	TASMem(.clk(clock), 
 		.addr(romAddr[11:0]), 
 		.dataOut(romData));
 	
 	wire [31:0] data_r29;
-	assign JA = data_r29[7:0];
-	assign JB = data_r29[15:8];
+	assign JB = data_r29[7:0];
+	assign JA = data_r29[15:8];
 
 	// Register File
 	regfile RegisterFile(.clock(clock), 

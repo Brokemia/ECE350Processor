@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1682115647">
+<GenRun Id="impl_1" LaunchPart="xc7a100tcsg324-1" LaunchTime="1682283650">
   <File Type="BITSTR-BMM" Name="Wrapper_bd.bmm"/>
   <File Type="OPT-METHODOLOGY-DRC" Name="Wrapper_methodology_drc_opted.rpt"/>
   <File Type="INIT-TIMING" Name="Wrapper_timing_summary_init.rpt"/>
@@ -216,16 +216,16 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../Tas Translator/mem_files/1a.mem">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PPRDIR/../uart2.v">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../Tas Translator/mem_files/jumptest.mem">
+      <FileInfo>
+        <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>

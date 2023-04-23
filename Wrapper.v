@@ -43,7 +43,7 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 
 	// ADD YOUR MEMORY FILE HERE
 	localparam INSTR_FILE = "program";
-	localparam TAS_FILE = "1a";
+	localparam TAS_FILE = "jumptest";
 	
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
@@ -124,10 +124,10 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 		RAMDataOut, writeRAM, BTN, SD_responseByte, SD_response, SD_cmd, SD_start, UART_setAddr, UART_startAddr, UART_lastByte);
 
 	// Better Debugger
-	assign LED[15:1] = { SD, UART_setAddr };
+	assign LED[15:0] = { JA, JB };
 
 	// Error LED
-	assign LED[0] = UART_err;
+	//assign LED[0] = UART_err;
 
 	// Debugger
 	//ila_0 debugger(clk, SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response, memAddr[11:0], memDataIn, memDataOut, mwe, clock);

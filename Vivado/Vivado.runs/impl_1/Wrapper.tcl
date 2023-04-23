@@ -140,7 +140,7 @@ OPTRACE "set parameters" END { }
 OPTRACE "add files" START { }
   add_files -quiet C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.runs/synth_1/Wrapper.dcp
   read_ip -quiet C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_0/ila_0.xci
-  read_ip -quiet c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_1.xci
+  read_ip -quiet C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_1.xci
 OPTRACE "read constraints: implementation" START { }
   read_xdc C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/constraints.xdc
 OPTRACE "read constraints: implementation" END { }

@@ -26,7 +26,7 @@ module UART_simple(input clk, input serialIn, output serialOut, output err, outp
                 timer <= 12'd868;
                 bitCounter <= bitCounter + 1;
                 // 9th bit is stop bit
-                if (bitCounter == 4'd9) begin
+                if (bitCounter == 4'd8) begin
                     waitingForBit <= 1'b1;
                     data <= byte;
                     if (!serialIn) begin

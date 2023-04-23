@@ -1,7 +1,7 @@
 -- Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
--- Date        : Thu Apr 20 15:54:42 2023
+-- Date        : Fri Apr 21 16:26:02 2023
 -- Host        : DESKTOP-VN8895K running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode synth_stub
 --               c:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Vivado/Vivado.srcs/sources_1/ip/ila_1/ila_1_stub.vhdl
@@ -23,7 +23,8 @@ entity ila_1 is
     probe5 : in STD_LOGIC_VECTOR ( 11 downto 0 );
     probe6 : in STD_LOGIC_VECTOR ( 31 downto 0 );
     probe7 : in STD_LOGIC_VECTOR ( 31 downto 0 );
-    probe8 : in STD_LOGIC_VECTOR ( 0 to 0 )
+    probe8 : in STD_LOGIC_VECTOR ( 0 to 0 );
+    probe9 : in STD_LOGIC_VECTOR ( 7 downto 0 )
   );
 
 end ila_1;
@@ -32,7 +33,7 @@ architecture stub of ila_1 is
 attribute syn_black_box : boolean;
 attribute black_box_pad_pin : string;
 attribute syn_black_box of stub : architecture is true;
-attribute black_box_pad_pin of stub : architecture is "clk,probe0[0:0],probe1[0:0],probe2[0:0],probe3[11:0],probe4[31:0],probe5[11:0],probe6[31:0],probe7[31:0],probe8[0:0]";
+attribute black_box_pad_pin of stub : architecture is "clk,probe0[0:0],probe1[0:0],probe2[0:0],probe3[11:0],probe4[31:0],probe5[11:0],probe6[31:0],probe7[31:0],probe8[0:0],probe9[7:0]";
 attribute X_CORE_INFO : string;
 attribute X_CORE_INFO of stub : architecture is "ila,Vivado 2020.1";
 begin

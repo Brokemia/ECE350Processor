@@ -24,14 +24,14 @@ module MemoryMap(
         UART_setAddr = 1'b0;
         if(writeEnable) begin
             case ({addr[11], addr[2:0]})
-                3'b1010: begin
+                4'b1010: begin
                     SD_cmd_reg[31:0] <= dataIn;
                 end
-                3'b1011: begin
+                4'b1011: begin
                     SD_cmd_reg[47:32] <= dataIn[15:0];
                     SD_start <= dataIn[31];
                 end
-                3'b1100: begin
+                4'b1100: begin
                     UART_setAddr = 1'b1;
                 end
             endcase
@@ -39,19 +39,19 @@ module MemoryMap(
     end
     always @(addr, RAM_out, BTN, SD_responseByte, SD_response) begin
         case ({addr[11], addr[2:0]})
-            3'b1000: begin
+            4'b1000: begin
                 dataOut = BTN;
             end
-            3'b1001: begin
+            4'b1001: begin
                 dataOut = { SD_responseByte, 23'b0, SD_responseBuffer };
             end
-            3'b1010: begin
+            4'b1010: begin
                 dataOut = SD_cmd_reg[31:0];
             end
-            3'b1011: begin
+            4'b1011: begin
                 dataOut = { SD_start, 15'b0, SD_cmd_reg[47:32] };
             end
-            3'b1100: begin
+            4'b1100: begin
                 dataOut = UART_lastByte;
             end
             default: begin

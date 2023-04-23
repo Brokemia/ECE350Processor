@@ -116,6 +116,7 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 	wire SD_start, SD_responseByte;
 	SDController SDModule(SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response);
 
+	wire [7:0] UART_lastByte;
 	//UART SerialModule(clk, serialIn, serialOut, UART_setAddr, UART_startAddr, UART_err, UART_writeAddr, UART_writeData, UART_writeEnable);
 	UART_simple SerialModule(clk, serialIn, serialOut, UART_err, UART_lastByte);
 
@@ -130,5 +131,5 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 
 	// Debugger
 	//ila_0 debugger(clk, SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response, memAddr[11:0], memDataIn, memDataOut, mwe, clock);
-	ila_1 debugger(clk, clock, serialIn, serialOut, UART_writeAddr, UART_writeData, memAddr[11:0], memDataIn, memDataOut, mwe);
+	ila_1 debugger(clk, clock, serialIn, serialOut, UART_writeAddr, UART_writeData, memAddr[11:0], memDataIn, memDataOut, mwe, UART_lastByte);
 endmodule

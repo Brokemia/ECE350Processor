@@ -76,8 +76,8 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 		.dataOut(romData));
 	
 	wire [31:0] data_r29;
-	assign JA = data_r29[7:0];
-	assign JB = data_r29[15:8];
+	assign JB = data_r29[7:0];
+	assign JA = data_r29[15:8];
 
 	// Register File
 	regfile RegisterFile(.clock(clock), 

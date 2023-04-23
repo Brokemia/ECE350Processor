@@ -92,9 +92,10 @@ def cmd_counts(name):
     with open(f"mem_files/{name}.mem", "w") as f:
         for line in cmds:
             # Line is [binary, frame count]
-            f.write(''.join([str(x) for x in line[0]]))
-            f.write("\n")
             f.write('{0:016b}'.format(line[1]))
             f.write('\n')
+            f.write(''.join([str(x) for x in line[0]]))
+            f.write("\n")
+
 
 cmd_counts(sys.argv[1])

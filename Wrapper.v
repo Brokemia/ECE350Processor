@@ -70,7 +70,7 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 		.dataOut(instData));
 
 	// TAS Memory (ROM)
-	ROM #(.DATA_WIDTH(16), .MEMFILE({TAS_FILE, ".mem"}))
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE, ".mem"}))
 	TASMem(.clk(clock), 
 		.addr(romAddr[11:0]), 
 		.dataOut(romData));

@@ -6,9 +6,10 @@ main:
 
 tas:
     # r19 is current input block 
-    # r18 is frames held
+    # r18 is frames held per block
     addi $r19, $r0, 0
     addi $r18, $r0, 0
+    addi $r29, $r0, 0
 
     # read in initial serial
     lw $r4, 2052($r0)

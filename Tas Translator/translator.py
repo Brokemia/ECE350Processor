@@ -22,6 +22,7 @@ button_index = {
 }
 
 # Buttom mapping for game in question
+# DPAD DOWN IS BROKEN :(
 control_mapping = {
     "J": "a",
     "C": "b",

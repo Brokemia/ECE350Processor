@@ -140,6 +140,8 @@ get_0_16_0_0:
     sra $r10, $r10, 8
     addi $r10, $r10, 0
 
+    jr $r31
+
 get_0_1_0_32:
     # 0 1 0 32
     addi $r10, $r0, 0
@@ -150,6 +152,8 @@ get_0_1_0_32:
     sra $r10, $r10, 8
     addi $r10, $r10, 32
 
+    jr $r31
+
 get_0_1_128_0:
     # 0 1 128 0
     addi $r10, $r0, 0
@@ -159,6 +163,8 @@ get_0_1_128_0:
     addi $r10, $r10, 128
     sra $r10, $r10, 8
     addi $r10, $r10, 0
+
+    jr $r31
 
 tas_set_clock:
     # new input every 20833 cycles

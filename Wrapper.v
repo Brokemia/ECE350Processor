@@ -44,7 +44,14 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut, SW);
 
 	// ADD YOUR MEMORY FILE HERE
 	localparam INSTR_FILE = "program";
-	localparam [7:0] TAS_FILES = { "1A", "1C", "8C" };
+	localparam TAS_FILE_1 = "1A";
+	localparam TAS_FILE_2 = "2A";
+	localparam TAS_FILE_3 = "1A";
+	localparam TAS_FILE_4 = "1A";
+	localparam TAS_FILE_5 = "1C";
+	localparam TAS_FILE_6 = "8C";
+	localparam TAS_FILE_7 = "1A";
+	localparam TAS_FILE_8 = "1A";
 	
 	wire [31:0] PC;
 	// Main Processing Unit
@@ -74,15 +81,48 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut, SW);
 		.dataOut(instData));
 
 	// TAS Memory (ROM)
-	wire [7:0] [31:0] roms;
+	wire [31:0] roms[0:7];
 	assign romData = roms[SW[2:0]];
 
-	for(integer i = 0; i < 8; i = i + 1) begin
-		ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILES[i], ".mem"}))
-		TASMem(.clk(clock), 
-			.addr(romAddr[11:0]), 
-			.dataOut(roms[i]));
-	end
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE_1, ".mem"}))
+	TASMem1(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(roms[0]));
+
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE_2, ".mem"}))
+	TASMem2(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(roms[1]));
+
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE_3, ".mem"}))
+	TASMem3(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(roms[2]));
+
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE_4, ".mem"}))
+	TASMem4(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(roms[3]));
+
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE_5, ".mem"}))
+	TASMem5(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(roms[4]));
+
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE_6, ".mem"}))
+	TASMem6(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(roms[5]));
+
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE_7, ".mem"}))
+	TASMem7(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(roms[6]));
+
+	ROM #(.DATA_WIDTH(32), .MEMFILE({TAS_FILE_8, ".mem"}))
+	TASMem8(.clk(clock), 
+		.addr(romAddr[11:0]), 
+		.dataOut(roms[7]));
 	
 	
 	wire [31:0] data_r29;

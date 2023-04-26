@@ -65,56 +65,86 @@ wait:
     bne $r6, $r0, wait
     jr $r31
 
-quick_restart:
-    jal get_0_1_1_0
-    addi $r29, $r10, 0
-    addi $r6, $r0, 50000
-    jal wait
+wait_next_frame_func:
+    # Load current serial input
+    lw $r5, 2052($r0)
 
-    jal get_0_16_0_0
-    addi $r29, $r10, 0
-    addi $r6, $r0, 50000
-    jal wait
-
-    jal get_0_1_0_32
-    addi $r29, $r10, 0
-    addi $r6, $r0, 200000
-    jal wait
+    # If its different from previous, process next frame
+    bne $r5, $r4, return
     
-    jal get_0_16_0_0
-    addi $r29, $r10, 0
-    addi $r6, $r0, 50000
-    jal wait
+    j wait_next_frame
 
-    jal get_0_1_0_32
-    addi $r29, $r10, 0
-    addi $r6, $r0, 20000
-    jal wait
+    return:
+        jr $r31
 
-    jal get_0_16_0_0
-    addi $r29, $r10, 0
-    addi $r6, $r0, 50000
-    jal wait
+quick_restart:
+    addi $r29, $r0, 256
+    jal wait_next_frame_func
 
-    jal get_0_1_128_0
-    addi $r29, $r10, 0
-    addi $r6, $r0, 20000
-    jal wait
+    addi $r29, $r0, 0
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
 
-    jal get_0_16_0_0
-    addi $r29, $r10, 0
-    addi $r6, $r0, 50000
-    jal wait
+    addi $r29, $r0, 32
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    
+    addi $r29, $r0, 0
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
 
-    jal get_0_1_128_0
-    addi $r29, $r10, 0
-    addi $r6, $r0, 20000
-    jal wait
+    addi $r29, $r0, 32
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
 
-    jal get_0_16_0_0
-    addi $r29, $r10, 0
-    addi $r6, $r0, 50000
-    jal wait
+    addi $r29, $r0, 0
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+
+    addi $r10, $r10, 128
+    sra $r29, $r10, 8
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+
+    addi $r29, $r0, 0
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+
+    addi $r10, $r10, 128
+    sra $r29, $r10, 8
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+
+    addi $r29, $r0, 0
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
+    jal wait_next_frame_func
 
     j main
 

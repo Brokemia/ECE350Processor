@@ -77,9 +77,10 @@ wait_next_frame_func:
     # If its different from previous, process next frame
     bne $r5, $r4, return
     
-    j wait_next_frame
+    j wait_next_frame_func
 
     return:
+        add $r4, $r5, $r0
         jr $r31
 
 quick_restart:

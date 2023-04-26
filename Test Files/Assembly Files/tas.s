@@ -68,52 +68,52 @@ wait:
 quick_restart:
     jal get_0_1_1_0
     addi $r29, $r10, 0
-    addi $r6, $r0, 5000
+    addi $r6, $r0, 50000
     jal wait
 
     jal get_0_16_0_0
     addi $r29, $r10, 0
-    addi $r6, $r0, 5000
+    addi $r6, $r0, 50000
     jal wait
 
     jal get_0_1_0_32
     addi $r29, $r10, 0
-    addi $r6, $r0, 800
+    addi $r6, $r0, 200000
     jal wait
     
     jal get_0_16_0_0
     addi $r29, $r10, 0
-    addi $r6, $r0, 5000
+    addi $r6, $r0, 50000
     jal wait
 
     jal get_0_1_0_32
     addi $r29, $r10, 0
-    addi $r6, $r0, 800
+    addi $r6, $r0, 20000
     jal wait
 
     jal get_0_16_0_0
     addi $r29, $r10, 0
-    addi $r6, $r0, 5000
+    addi $r6, $r0, 50000
     jal wait
 
     jal get_0_1_128_0
     addi $r29, $r10, 0
-    addi $r6, $r0, 800
+    addi $r6, $r0, 20000
     jal wait
 
     jal get_0_16_0_0
     addi $r29, $r10, 0
-    addi $r6, $r0, 5000
+    addi $r6, $r0, 50000
     jal wait
 
     jal get_0_1_128_0
     addi $r29, $r10, 0
-    addi $r6, $r0, 800
+    addi $r6, $r0, 20000
     jal wait
 
     jal get_0_16_0_0
     addi $r29, $r10, 0
-    addi $r6, $r0, 5000
+    addi $r6, $r0, 50000
     jal wait
 
     j main

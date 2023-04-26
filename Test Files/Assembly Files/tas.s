@@ -1,4 +1,5 @@
 main:
+    addi $r29, $r0, 0
     # look for button presses to do different operations
     lw $r10, 2048(0)
     bne $r10, $r0, tas
@@ -9,7 +10,6 @@ tas:
     # r18 is frames held per block
     addi $r19, $r0, 0
     addi $r18, $r0, 0
-    addi $r29, $r0, 0
 
     # read in initial serial
     lw $r4, 2052($r0)

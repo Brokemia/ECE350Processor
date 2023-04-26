@@ -43,8 +43,9 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 
 	// ADD YOUR MEMORY FILE HERE
 	localparam INSTR_FILE = "program";
-	localparam TAS_FILE = "jumptest";
+	localparam TAS_FILE = "1A";
 	
+	wire [31:0] PC;
 	// Main Processing Unit
 	processor CPU(.clock(clock), .reset(reset), 
 								
@@ -61,7 +62,9 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 									
 		// RAM
 		.wren(mwe), .address_dmem(memAddr), 
-		.data(memDataIn), .q_dmem(memDataOut)); 
+		.data(memDataIn), .q_dmem(memDataOut),
+		
+		.PC_dbg(PC)); 
 	
 	// Instruction Memory (ROM)
 	ROM #(.MEMFILE({INSTR_FILE, ".mem"}))
@@ -131,5 +134,5 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut);
 
 	// Debugger
 	//ila_0 debugger(clk, SD, SD_clk, SD_cmd, SD_start, SD_responseByte, SD_response, memAddr[11:0], memDataIn, memDataOut, mwe, clock);
-	ila_1 debugger(clk, clock, serialIn, serialOut, UART_writeAddr, UART_writeData, memAddr[11:0], memDataIn, memDataOut, mwe, UART_lastByte);
+	ila_1 debugger(clk, clock, serialIn, serialOut, UART_writeAddr, PC, memAddr[11:0], memDataIn, memDataOut, mwe, UART_lastByte);
 endmodule

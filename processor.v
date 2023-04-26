@@ -43,8 +43,9 @@ module processor(
     ctrl_readRegB,                  // O: Register to read from port B of RegFile
     data_writeReg,                  // O: Data to write to for RegFile
     data_readRegA,                  // I: Data from port A of RegFile
-    data_readRegB                   // I: Data from port B of RegFile
+    data_readRegB,                  // I: Data from port B of RegFile
 	 
+    PC_dbg
 	);
 
 	// Control signals
@@ -69,6 +70,8 @@ module processor(
 	output [31:0] data_writeReg;
 	input [31:0] data_readRegA, data_readRegB;
 
+    output [31:0] PC_dbg;
+
     wire writeEnable, stallFD;
 
     /* Stall Logic */
@@ -78,6 +81,7 @@ module processor(
     wire [31:0] pc, pcPlusOne, jumpTarget, pcNext, executeSXImmediate, branchFromPC, bexJumpTarget;
     wire isJumpI, isJumpII, takeBranch, flushFD, takeBEX;
     register32 PC(!clock, writeEnable && !stallFD, reset, pcNext, pc);
+    assign PC_dbg = pc;
 
     assign address_imem = isJumpII ? bypassedA : pc;
 

@@ -93,6 +93,7 @@ OPTRACE "Adding files" START { }
 read_mem {
   C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/program.mem
   {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/jumptest.mem}
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/1A.mem}
 }
 read_verilog -library xil_defaultlib {
   C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/RAM.v

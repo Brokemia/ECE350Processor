@@ -45,7 +45,7 @@ tas:
         wait_next_frame:
             lw $r10, 2048(0)
             bne $r10, $r1, blip
-            j quick_restart
+            j quick_restart_waiting_room
 
         blip:
             # Load current serial input
@@ -55,6 +55,11 @@ tas:
             bne $r5, $r4, tas_loop
             
             j wait_next_frame
+
+quick_restart_waiting_room:
+    lw $r10, 2048(0)
+    bne $r10, $r0, quick_restart_waiting_room
+    j quick_restart 
 
 wait:  
     # r6 has number of cycles to wait,
@@ -79,75 +84,27 @@ wait_next_frame_func:
 
 quick_restart:
     addi $r29, $r0, 256
-    addi $r20, $r0, 60
-    step_0:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_0
-
-    addi $r29, $r0, 0
-    addi $r20, $r0, 60
-    step_1:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_1
+    jal wait_next_frame_func
 
     addi $r29, $r0, 32
-    addi $r20, $r0, 30
-    step_2:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_2
+    jal wait_next_frame_func
     
     addi $r29, $r0, 0
-    addi $r20, $r0, 60
-    step_3:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_3
+    jal wait_next_frame_func
 
     addi $r29, $r0, 32
-    addi $r20, $r0, 30
-    step_4:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_4
-
-    addi $r29, $r0, 0
-    addi $r20, $r0, 60
-    step_5:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_5
+    jal wait_next_frame_func
 
     addi $r10, $r10, 128
     sra $r29, $r10, 8
-    addi $r20, $r0, 30
-    step_6:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_6
+    jal wait_next_frame_func
 
     addi $r29, $r0, 0
-    addi $r20, $r0, 60
-    step_7:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_7
+    jal wait_next_frame_func
 
-    addi $r10, $r10, 128
     sra $r29, $r10, 8
-    addi $r20, $r0, 30
-    step_8:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_8
+    jal wait_next_frame_func
 
     addi $r29, $r0, 0
-    addi $r20, $r0, 60
-    step_9:
-        jal wait_next_frame_func
-        addi $r20, $r0, -1
-        bne $r20, $r0, step_9
 
     j main

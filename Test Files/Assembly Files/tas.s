@@ -79,7 +79,11 @@ wait_next_frame_func:
 
 quick_restart:
     addi $r29, $r0, 256
-    jal wait_next_frame_func
+    addi $r20, $r0, 60
+    step_0:
+        jal wait_next_frame_func
+        addi $r20, $r0, -1
+        bne $r20, $r0, step_0
 
     addi $r29, $r0, 0
     addi $r20, $r0, 60
@@ -111,39 +115,39 @@ quick_restart:
 
     addi $r29, $r0, 0
     addi $r20, $r0, 60
-    step_2:
+    step_5:
         jal wait_next_frame_func
         addi $r20, $r0, -1
-        bne $r20, $r0, step_2
+        bne $r20, $r0, step_5
 
     addi $r10, $r10, 128
     sra $r29, $r10, 8
     addi $r20, $r0, 30
-    step_2:
+    step_6:
         jal wait_next_frame_func
         addi $r20, $r0, -1
-        bne $r20, $r0, step_2
+        bne $r20, $r0, step_6
 
     addi $r29, $r0, 0
     addi $r20, $r0, 60
-    step_2:
+    step_7:
         jal wait_next_frame_func
         addi $r20, $r0, -1
-        bne $r20, $r0, step_2
+        bne $r20, $r0, step_7
 
     addi $r10, $r10, 128
     sra $r29, $r10, 8
     addi $r20, $r0, 30
-    step_2:
+    step_8:
         jal wait_next_frame_func
         addi $r20, $r0, -1
-        bne $r20, $r0, step_2
+        bne $r20, $r0, step_8
 
     addi $r29, $r0, 0
     addi $r20, $r0, 60
-    step_2:
+    step_9:
         jal wait_next_frame_func
         addi $r20, $r0, -1
-        bne $r20, $r0, step_2
+        bne $r20, $r0, step_9
 
     j main

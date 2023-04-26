@@ -1,120 +1,3 @@
-quick_restart_setup:
-    # address for reset tas
-    # word addr
-    addi $r11, $r0, 100
-
-    # 0 1 1 0
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 1
-    sra $r10, $r10, 8
-    addi $r10, $r10, 1
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    
-    sw $r10, 0($r11)
-
-    # 0 16 0 0
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 16
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    
-    sw $r10, 1($r11)
-
-    # 0 1 0 32
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 1
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 32
-    
-    sw $r10, 2($r11)
-
-    # 0 16 0 0
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 16
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    
-    sw $r10, 3($r11)
-
-    # 0 1 0 32
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 1
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 32
-    
-    sw $r10, 4($r11)
-
-    # 0 16 0 0
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 16
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    
-    sw $r10, 5($r11)
-
-    # 0 1 128 0
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 1
-    sra $r10, $r10, 8
-    addi $r10, $r10, 128
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    
-    sw $r10, 6($r11)
-
-    # 0 16 0 0
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 16
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    
-    sw $r10, 7($r11)
-
-    # 0 1 128 0
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 1
-    sra $r10, $r10, 8
-    addi $r10, $r10, 128
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    
-    sw $r10, 8($r11)
-
-    # 0 16 0 0
-    addi $r10, $r0, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 16
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    sra $r10, $r10, 8
-    addi $r10, $r10, 0
-    
-    sw $r10, 9($r11)
-
-    j main
-
 main:
     # look for button presses to do different operations
     lw $r10, 2048(0)
@@ -170,55 +53,109 @@ tas:
             
             j wait_next_frame
 
+wait:  
+    # r6 has number of cycles to wait,
+    # will mutate r6, 
+    # r6 must be at least one
+
+    addi $r6, $r0, -1
+    bne $r6, $r0, wait
+    jr $r31
+
 quick_restart:
-    # r19 is current input block 
-    # r18 is frames held per block
-    addi $r19, $r0, 0
-    addi $r18, $r0, 0
-    addi $r20, $r0, 10
-    addi $r29, $r0, 1023
-    bne $r29, $r0, quick_restart
+    jal get_0_1_1_0
+    addi $r29, $r10, 0
+    addi $r6, $r0, 5000
+    jal wait
 
-    # read in initial serial
-    lw $r4, 2052($r0)
+    jal get_0_16_0_0
+    addi $r29, $r10, 0
+    addi $r6, $r0, 5000
+    jal wait
 
-    # wait for first frame
-    j wait_next_frame
+    jal get_0_1_0_32
+    addi $r29, $r10, 0
+    addi $r6, $r0, 100
+    jal wait
+    
+    jal get_0_16_0_0
+    addi $r29, $r10, 0
+    addi $r6, $r0, 5000
+    jal wait
 
-    reset_loop:
-        # Get inputs for next frame
+    jal get_0_1_0_32
+    addi $r29, $r10, 0
+    addi $r6, $r0, 100
+    jal wait
 
-        # reset serial toggle
-        add $r4, $r5, $r0
+    jal get_0_16_0_0
+    addi $r29, $r10, 0
+    addi $r6, $r0, 5000
+    jal wait
 
-        # wait if there are more frames to hold 
-        bne $r18, $r0, hold_inputs_reset
+    jal get_0_1_128_0
+    addi $r29, $r10, 0
+    addi $r6, $r0, 100
+    jal wait
 
-        # Load next input block
-        lw $r29, 100($r19)
+    jal get_0_16_0_0
+    addi $r29, $r10, 0
+    addi $r6, $r0, 5000
+    jal wait
 
-        # Shift hold count into r18
-        sra $r18, $r29, 16
+    jal get_0_1_128_0
+    addi $r29, $r10, 0
+    addi $r6, $r0, 100
+    jal wait
 
-        # Increment input block counter
-        addi $r19, $r19, 1
-        addi $r20, $r20, -1
+    jal get_0_16_0_0
+    addi $r29, $r10, 0
+    addi $r6, $r0, 5000
+    jal wait
 
-        hold_inputs_reset:
-            addi $r18, $r18, -1
+    j main
 
-        bne $r20, $r0, wait_next_frame_reset
+get_0_1_1_0:
+    # 0 1 1 0
+    addi $r10, $r0, 0
+    sra $r10, $r10, 8
+    addi $r10, $r10, 1
+    sra $r10, $r10, 8
+    addi $r10, $r10, 1
+    sra $r10, $r10, 8
+    addi $r10, $r10, 0
 
-        j main
+    jr $r31
 
-        wait_next_frame_reset:
-            # Load current serial input
-            lw $r5, 2052($r0)
+get_0_16_0_0:
+    # 0 16 0 0
+    addi $r10, $r0, 0
+    sra $r10, $r10, 8
+    addi $r10, $r10, 16
+    sra $r10, $r10, 8
+    addi $r10, $r10, 0
+    sra $r10, $r10, 8
+    addi $r10, $r10, 0
 
-            # If its different from previous, process next frame
-            bne $r5, $r4, reset_loop
-            
-            j wait_next_frame_reset
+get_0_1_0_32:
+    # 0 1 0 32
+    addi $r10, $r0, 0
+    sra $r10, $r10, 8
+    addi $r10, $r10, 1
+    sra $r10, $r10, 8
+    addi $r10, $r10, 0
+    sra $r10, $r10, 8
+    addi $r10, $r10, 32
+
+get_0_1_128_0:
+    # 0 1 128 0
+    addi $r10, $r0, 0
+    sra $r10, $r10, 8
+    addi $r10, $r10, 1
+    sra $r10, $r10, 8
+    addi $r10, $r10, 128
+    sra $r10, $r10, 8
+    addi $r10, $r10, 0
 
 tas_set_clock:
     # new input every 20833 cycles

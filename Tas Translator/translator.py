@@ -25,6 +25,7 @@ button_index = {
 # DPAD DOWN IS BROKEN :(
 control_mapping = {
     "J": "a",
+    "O": "a",
     "C": "b",
     "X": "x",
     "K": "y",

@@ -176,7 +176,8 @@ quick_restart:
     addi $r19, $r0, 0
     addi $r18, $r0, 0
     addi $r20, $r0, 10
-    addi $r29, $r0, 0
+    addi $r29, $r0, 1023
+    bne $r29, $r0, quick_restart
 
     # read in initial serial
     lw $r4, 2052($r0)

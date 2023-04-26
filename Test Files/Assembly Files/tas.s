@@ -57,6 +57,7 @@ tas:
             j wait_next_frame
 
 quick_restart_waiting_room:
+    addi $r29, $r0, 0
     lw $r10, 2048(0)
     bne $r10, $r0, quick_restart_waiting_room
     j quick_restart 
@@ -71,13 +72,16 @@ wait:
     jr $r31
 
 wait_next_frame_func:
+    lw $r4, 2052($r0)
+    wait_next_frame_func_loop:
+
     # Load current serial input
     lw $r5, 2052($r0)
 
     # If its different from previous, process next frame
     bne $r5, $r4, return
     
-    j wait_next_frame_func
+    j wait_next_frame_func_loop
 
     return:
         add $r4, $r5, $r0

@@ -96,6 +96,13 @@ read_mem {
   {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/1A.mem}
   {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/1C.mem}
   {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/8C.mem}
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/inputtests.mem}
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/1B.mem}
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/1A_screen1.mem}
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/reset.mem}
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/4A.mem}
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/2A.mem}
+  {C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/Tas Translator/mem_files/2C.mem}
 }
 read_verilog -library xil_defaultlib {
   C:/Users/rrwth/OneDrive/Documents/College/ECE350/Checkpoints/processor/RAM.v

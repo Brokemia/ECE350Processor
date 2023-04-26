@@ -45,13 +45,13 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut, SW);
 	// ADD YOUR MEMORY FILE HERE
 	localparam INSTR_FILE = "program";
 	localparam TAS_FILE_1 = "1A";
-	localparam TAS_FILE_2 = "2A";
-	localparam TAS_FILE_3 = "1A";
-	localparam TAS_FILE_4 = "1A";
-	localparam TAS_FILE_5 = "1C";
-	localparam TAS_FILE_6 = "8C";
+	localparam TAS_FILE_2 = "1B";
+	localparam TAS_FILE_3 = "1C";
+	localparam TAS_FILE_4 = "2A";
+	localparam TAS_FILE_5 = "2C";
+	localparam TAS_FILE_6 = "4A";
 	localparam TAS_FILE_7 = "1A";
-	localparam TAS_FILE_8 = "1A";
+	localparam TAS_FILE_8 = "8C";
 	
 	wire [31:0] PC;
 	// Main Processing Unit
@@ -126,8 +126,8 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut, SW);
 	
 	
 	wire [31:0] data_r29;
-	assign JB = data_r29[7:0];
-	assign JA = data_r29[15:8];
+	assign JB = { data_r29[0], data_r29[1], data_r29[2], data_r29[3], data_r29[4], data_r29[5], data_r29[6], data_r29[7] };
+	assign JA = { data_r29[8], data_r29[9], data_r29[10], data_r29[11], data_r29[12], data_r29[13], data_r29[14], data_r29[15] };
 
 	// Register File
 	regfile RegisterFile(.clock(clock), 
@@ -174,7 +174,7 @@ module Wrapper (clk, rst, JA, JB, BTN, SD, LED, serialIn, serialOut, SW);
 		RAMDataOut, writeRAM, BTN, SD_responseByte, SD_response, SD_cmd, SD_start, UART_setAddr, UART_startAddr, UART_lastByte);
 
 	// Better Debugger
-	assign LED[15:0] = { JA, JB };
+	assign LED[15:0] = { JA[0], JA[1], JA[2], JA[3], JA[4], JA[5], JA[6], JA[7], JB[0], JB[1], JB[2], JB[3], JB[4], JB[5], JB[6], JB[7] };
 
 	// Error LED
 	//assign LED[0] = UART_err;

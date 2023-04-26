@@ -127,6 +127,7 @@ tas:
     addi $r19, $r0, 0
     addi $r18, $r0, 0
     addi $r29, $r0, 0
+    addi $r1, $r0, 1
 
     # read in initial serial
     lw $r4, 2052($r0)
@@ -157,8 +158,10 @@ tas:
 
         wait_next_frame:
             lw $r10, 2048(0)
-            bne $r10, $r0, quick_restart
+            bne $r10, $r1, blip
+            j quick_restart
 
+        blip:
             # Load current serial input
             lw $r5, 2052($r0)
 

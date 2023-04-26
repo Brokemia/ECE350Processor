@@ -1,8 +1,11 @@
 main:
     # look for button presses to do different operations
     lw $r10, 2048(0)
-    bne $r10, $r0, tas
+    bne $r10, $r0, wait_for_release
     j main
+wait_for_release:
+    lw $r10, 2048(0)
+    bne $r10, $r0, wait_for_release
 
 tas:
     # r19 is current input block 

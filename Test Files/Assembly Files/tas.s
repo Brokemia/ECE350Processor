@@ -118,8 +118,11 @@ quick_restart_setup:
 main:
     # look for button presses to do different operations
     lw $r10, 2048(0)
-    bne $r10, $r0, tas
+    bne $r10, $r0, wait_for_release
     j main
+wait_for_release:
+    lw $r10, 2048(0)
+    bne $r10, $r0, wait_for_release
 
 tas:
     # r19 is current input block 
@@ -182,7 +185,7 @@ quick_restart:
     lw $r4, 2052($r0)
 
     # wait for first frame
-    j wait_next_frame
+    j wait_next_frame_reset
 
     reset_loop:
         # Get inputs for next frame
